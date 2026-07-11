@@ -1,0 +1,176 @@
+/* --- TEMEL DEĞİŞKENLER VE RENK PALETİ --- */
+:root {
+    --color-primary: #B8A88A; 
+    --color-dark: #2C3539;    
+    --color-light: #FAFAFA;   
+    --color-text: #4A4A4A;    
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+body { font-family: var(--font-body); background-color: var(--color-light); color: var(--color-text); line-height: 1.6; }
+h1, h2, h3, h4 { font-family: var(--font-heading); color: var(--color-dark); font-weight: 700; }
+a { text-decoration: none; transition: 0.3s ease; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* --- NAVİGASYON --- */
+.navbar { background-color: var(--color-light); padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: var(--color-dark); }
+.nav-links { list-style: none; display: flex; gap: 30px; align-items: center; }
+.nav-links a { color: var(--color-dark); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; }
+.nav-links a:hover { color: var(--color-primary); }
+
+/* --- BUTONLAR --- */
+.btn-primary { display: inline-block; background-color: var(--color-primary); color: var(--color-light); padding: 15px 35px; font-weight: 600; text-transform: uppercase; border: 1px solid var(--color-primary); cursor: pointer; }
+.btn-primary:hover { background-color: transparent; color: var(--color-primary); }
+.btn-outline { border: 1px solid var(--color-primary); padding: 10px 20px; color: var(--color-primary) !important; }
+.btn-outline:hover { background-color: var(--color-primary); color: var(--color-light) !important; }
+
+/* --- HERO & HAKKIMIZDA --- */
+.hero-section { background-color: var(--color-dark); color: var(--color-light); height: 70vh; display: flex; align-items: center; text-align: center; }
+.hero-section h1 { color: var(--color-light); font-size: 3.5rem; margin-bottom: 20px; }
+.hero-section p { font-size: 1.2rem; margin-bottom: 40px; font-weight: 300; max-width: 600px; margin: 0 auto 40px auto;}
+
+.about-section { padding: 80px 0; background-color: #fff; text-align: center; }
+.section-title { margin-bottom: 50px; text-align: center; }
+.section-title h2 { font-size: 2.5rem; display: inline-block; position: relative; margin-bottom: 15px; }
+.section-title h2::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 50px; height: 2px; background-color: var(--color-primary); }
+.about-text { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #555; }
+
+/* --- ÜRÜNLER SLIDER DÜZELTİLDİ --- */
+.products-section { padding: 80px 0; background-color: var(--color-light); }
+.carousel-container { 
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    width: 100%;
+    padding: 0 60px; /* Butonların kaybolmasını engelleyen altın kural */
+}
+.carousel-track {
+    display: flex; gap: 30px; overflow-x: auto; scroll-behavior: smooth;
+    padding: 20px 5px; width: 100%; -ms-overflow-style: none; scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.product-card { flex: 0 0 calc(33.333% - 20px); background: #fff; border: 1px solid #eee; transition: 0.3s; scroll-snap-align: start; }
+.product-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-color: var(--color-primary); }
+.product-img { height: 250px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; color: #aaa; }
+.product-info { padding: 30px; text-align: center; }
+.product-info h3 { margin-bottom: 15px; font-size: 1.2rem; }
+
+/* Butonlar İçeri Alındı ve Görünür Yapıldı */
+.carousel-btn {
+    background-color: #fff; color: var(--color-dark); border: 1px solid #ddd;
+    width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem;
+    cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 10; transition: 0.3s; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.carousel-btn:hover { background-color: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.prev-btn { left: 0; }  /* Tamamen sola yapıştı */
+.next-btn { right: 0; } /* Tamamen sağa yapıştı */
+
+/* --- İLETİŞİM --- */
+.contact-section { padding: 80px 0; background-color: #fff; border-top: 1px solid #eee; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.premium-form { display: flex; flex-direction: column; gap: 20px; }
+.premium-form input, .premium-form textarea { width: 100%; padding: 15px 20px; border: 1px solid #ddd; background-color: var(--color-light); font-family: var(--font-body); font-size: 0.95rem; outline: none; transition: 0.3s; }
+.premium-form input:focus, .premium-form textarea:focus { border-color: var(--color-primary); }
+
+/* --- YENİ KLASİK FOOTER (ALT BİLGİ) --- */
+.site-footer {
+    background-color: var(--color-dark);
+    color: #ccc;
+    padding: 70px 0 20px 0;
+}
+.footer-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+.footer-brand h3 { color: var(--color-primary); font-size: 1.8rem; margin-bottom: 15px; }
+.footer-brand p { font-size: 0.95rem; line-height: 1.8; padding-right: 20px; }
+.footer-links-box h4, .footer-contact-box h4 { color: #fff; margin-bottom: 25px; font-size: 1.2rem; }
+.footer-links-box ul { list-style: none; }
+.footer-links-box ul li { margin-bottom: 12px; }
+.footer-links-box ul li a { color: #ccc; transition: 0.3s; }
+.footer-links-box ul li a:hover { color: var(--color-primary); padding-left: 5px; }
+.footer-contact-box p { margin-bottom: 15px; font-size: 0.95rem; }
+.footer-bottom {
+    text-align: center;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* =========================================
+   MOBİL UYUM (RESPONSIVE) VE HAMBURGER MENÜ
+   ========================================= */
+
+/* Hamburger Butonu Stilleri (Masaüstünde Gizli) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 200;
+}
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-dark);
+    transition: 0.3s;
+    border-radius: 3px;
+}
+
+/* Mobil Ekranlar İçin Düzenlemeler (768px ve altı) */
+@media (max-width: 768px) {
+    /* 1. Navigasyon ve Hamburger Menü */
+    .hamburger { display: flex; }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Başlangıçta ekran dışı */
+        width: 70%;
+        height: 100vh;
+        background-color: var(--color-light);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+        transition: 0.4s ease-in-out;
+        z-index: 150;
+    }
+    
+    .nav-links.active { right: 0; } /* Menü açıldığında */
+    
+    /* 2. Tipografi (Yazı Tiplerini Küçültme) */
+    .hero-section h1 { font-size: 2.2rem; }
+    .hero-section p { font-size: 1rem; padding: 0 10px; }
+    .section-title h2 { font-size: 1.8rem; }
+    
+    /* 3. Slider (Carousel) Mobil Yerleşimi */
+    .carousel-container { padding: 0 35px; } /* Butonlar için boşluğu daralt */
+    .carousel-btn { width: 35px; height: 35px; font-size: 1rem; } /* Butonları küçült */
+    .prev-btn { left: 0; }
+    .next-btn { right: 0; }
+    
+    /* Mobilde kartları tam ekran (tekli) göster */
+    .product-card { flex: 0 0 calc(100% - 10px); }
+    .product-img { height: 200px; } /* Görsel alanını biraz daralt */
+    
+    /* 4. Grid (Izgara) Yapılarını Tek Sütuna Düşürme */
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .detail-grid { grid-template-columns: 1fr; gap: 30px; }
+    .footer-layout { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+    
+    /* 5. Boşluk (Padding) Ayarları */
+    .about-section, .products-section, .contact-section { padding: 50px 0; }
+    .detail-image { min-height: 250px; }
+}

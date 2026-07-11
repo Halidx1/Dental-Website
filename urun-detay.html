@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı | Çınar Diş Deposu</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigasyon -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Çınar Diş Deposu</a>
+            
+            <!-- Mobil İçin Hamburger Butonu Eklendi -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="index.html#about">Hakkımızda</a></li>
+                <li><a href="urunler.html" style="color: var(--color-primary);">Ürünler</a></li>
+                <li><a href="index.html#contact" class="btn-outline">İletişim</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="product-detail-section" style="padding: 80px 0; background-color: #fff; min-height: 70vh;">
+        <div class="container">
+            
+            <a href="index.html#products" class="back-link">&larr; Ürünlere Dön</a>
+            
+            <div class="detail-grid">
+                <div class="detail-image" id="product-img">
+                    Ürün Görseli
+                </div>
+                
+                <div class="detail-info">
+                    <h4 id="product-category" style="color: var(--color-primary); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">Kategori</h4>
+                    <h1 id="product-title" style="font-size: 2.5rem; margin: 10px 0 20px 0;">Ürün Başlığı Yükleniyor...</h1>
+                    
+                    <p id="product-desc" style="color: #666; line-height: 1.8; margin-bottom: 30px;">
+                        Açıklama yükleniyor...
+                    </p>
+                    
+                    <h3 style="margin-bottom: 15px; font-size: 1.2rem;">Teknik Özellikler</h3>
+                    <ul class="spec-list" id="product-specs">
+                        </ul>
+
+                    <a href="index.html#contact" class="btn-primary" style="margin-top: 30px;">Fiyat ve Bilgi Alın</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background-color: var(--color-dark); color: #fff; text-align: center; padding: 40px 0;">
+        <p>&copy; 2026 Çınar Diş Deposu. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        // ÜRÜN VERİTABANI (Yeni ürün eklemek istediğinde sadece buraya eklemen yeterli)
+        const urunVerileri = {
+            "kompozit": {
+                kategori: "Klinik Sarf Malzemeleri",
+                baslik: "Premium Kompozit Dolgu Seti",
+                aciklama: "Bu premium kompozit dolgu seti, ön ve arka diş restorasyonları için mükemmel cilalanabilirlik ve bukalemun efekti (diş rengine uyum) sunar. Yüksek radyoopasiteye sahiptir ve çekme mukavemeti uluslararası standartların üzerindedir.",
+                ozellikler: ["Grade 4 Titanyum ve Seramik karışımı üstün yüzey.", "4 farklı renk şırıngası (A1, A2, A3, B1).", "Uzun ömürlü ve aşınmaya karşı ekstra direnç."],
+                gorsel: "Kompozit Seti Görseli"
+            },
+            "implant": {
+                kategori: "İmplant Sistemleri",
+                baslik: "Titanyum İmplant Vida",
+                aciklama: "Grade 4 saf titanyumdan üretilmiş, kusursuz osteoentegrasyon (kemik kaynaşması) sağlayan SLA yüzey teknolojisine sahip premium implant sistemidir.",
+                ozellikler: ["%100 Saf Grade 4 Titanyum.", "SLA Yüzey Teknolojisi ile hızlı iyileşme.", "Uluslararası sertifikalı, ömür boyu garantili."],
+                gorsel: "İmplant Vida Görseli"
+            },
+            "frez": {
+                kategori: "Cerrahi Aletler",
+                baslik: "Cerrahi Frez Kiti",
+                aciklama: "Paslanmaz çelikten üretilmiş, uzun ömürlü ve yüksek devirlerde bile ısınmayı minimuma indiren profesyonel cerrahi frez seti.",
+                ozellikler: ["Isınma yapmayan özel tasarım.", "Paslanmaz cerrahi çelik materyal.", "Tüm standart angldruvalar ile uyumlu."],
+                gorsel: "Frez Kiti Görseli"
+            },
+            "sterilizasyon": {
+                kategori: "Hijyen ve Sterilizasyon",
+                baslik: "Sterilizasyon Rulosu",
+                aciklama: "Klinik içi sterilizasyon işlemlerinde maksimum güvenlik ve bariyer koruması sağlayan indikatörlü (renk değiştiren) premium rulolar.",
+                ozellikler: ["Buhar ve Otoklav uyumlu indikatörler.", "Yırtılmaya dayanıklı ekstra kalın yapı.", "Farklı milimetre genişlik seçenekleri."],
+                gorsel: "Sterilizasyon Rulosu Görseli"
+            },
+            "onluk": {
+                kategori: "Klinik Tekstili",
+                baslik: "Profesyonel Klinik Önlüğü",
+                aciklama: "Leke tutmayan, hava alan ve hekimlerin gün boyu rahatça çalışabilmesi için özel olarak tasarlanmış klinik çalışma önlükleri.",
+                ozellikler: ["Leke ve sıvı itici nano teknoloji kumaş.", "Terletmeyen özel pamuk karışımı.", "Modern, şık ve lüks kesim."],
+                gorsel: "Önlük Görseli"
+            }
+        };
+
+        // URL'den hangi ürünün tıklandığını bulalım (Örn: ?id=implant)
+        const urlParams = new URLSearchParams(window.location.search);
+        const urunId = urlParams.get('id');
+
+        // İlgili ürünü veritabanından çekelim
+        const secilenUrun = urunVerileri[urunId];
+
+        if(secilenUrun) {
+            // Eğer veritabanımızda detayı yazılmış bir ürünse
+            document.getElementById('product-title').innerText = secilenUrun.baslik;
+            document.getElementById('product-category').innerText = secilenUrun.kategori;
+            document.getElementById('product-desc').innerText = secilenUrun.aciklama;
+            document.getElementById('product-img').innerText = secilenUrun.gorsel;
+            
+            const specsContainer = document.getElementById('product-specs');
+            secilenUrun.ozellikler.forEach(ozellik => {
+                const li = document.createElement('li');
+                li.innerText = ozellik;
+                specsContainer.appendChild(li);
+            });
+            document.title = secilenUrun.baslik + " | Çınar Diş Deposu";
+            
+        } else if (urunId) {
+            // VERİTABANINDA EKSİK OLAN YENİ EKLENMİŞ 13 ÜRÜN İÇİN OTOMATİK DOLDURMA
+            document.getElementById('product-title').innerText = "Premium Dental Ürün (" + urunId + ")";
+            document.getElementById('product-category').innerText = "Yeni Ürün";
+            document.getElementById('product-desc').innerText = "Bu ürünümüz hakkında teknik detaylar ve açıklamalar kısa süre içerisinde eklenecektir. Fiyat ve stok bilgisi için lütfen aşağıdaki form üzerinden bizimle iletişime geçin.";
+            
+            const specsContainer = document.getElementById('product-specs');
+            specsContainer.innerHTML = "<li>Uluslararası standartlarda üretim.</li><li>Klinik dayanıklılık testlerinden geçmiş premium materyal.</li>";
+        }
+        
+    </script>
+</body>
+</html>
+
