@@ -1,5 +1,146 @@
+        // ÜRÜN VERİTABANI (Yeni ürün eklemek istediğinde sadece buraya eklemen yeterli)
+const urunVerileri = {
+    "protesil-set": {
+        kategori: "Ölçü Maddeleri",
+        baslik: "Protesil Set C Tipi",
+        aciklama: "Çift baskı tekniğinde ilk baskının alınması için geliştirilmiş yüksek viskoziteli yoğunlaşma silikonudur. Ağza yerleştirildiğinde ekstra yumuşak bir doku sunarken, elastikiyet ve sertlik arasında kusursuz bir denge kurar.",
+        ozellikler: [
+            "Yüksek ilk pürüzsüzlük sayesinde basit ve güvenli manuel karıştırma imkanı.",
+            "Çalışma ve kürlenme süresi arasında optimum oran.",
+            "Yüksek boyutsal kararlılık ve uzun ömürlü yapı.",
+            "Paket İçeriği: I. Ölçü 900 ml. + II. Ölçü 140 ml. + Katalizör 60 ml tüp."
+        ],
+        gorseller: [
+            "images/products/protesil-set-c-tipi/PROTESİL C tipi set.jpeg", 
+            "images/products/protesil-set-c-tipi/c tipi.jpg",
+            "images/products/protesil-set-c-tipi/katalizör 1.jpeg",
+            "images/products/protesil-set-c-tipi/katalizör.jpeg",
+            "images/products/protesil-set-c-tipi/protesil light.jpeg",
+            "images/products/protesil-set-c-tipi/Protesil putty.jpeg",
+            "images/products/protesil-set-c-tipi/protesil.jpeg"
+        ]
+    },
+    "b-tipi-otoklav-23lt": {
+        kategori: "Klinik Cihazlar ve Ekipmanlar",
+        baslik: "B Tipi Otoklav (23 Litre)",
+        aciklama: "Klinik sterilizasyon ihtiyaçlarınız için yüksek kapasiteli, LCD ekranlı ve entegre yazıcılı premium B sınıfı otoklav cihazı.",
+        ozellikler: [
+            "Kapasite: 23 Litre",
+            "Ürün Boyutu: 66 x 50 x 43 cm",
+            "Ekran: Kullanıcı dostu LCD panel",
+            "Güvenlik: Çift kilit sistemi ile ekstra koruma",
+            "Bağlantı ve Raporlama: USB ve dahili Printer (Yazıcı) desteği",
+            "Programlar: 7 Önceden ayarlanmış program, 2 Test programı ve 1 Özel program"
+        ],
+        gorseller: [
+            "images/products/b-tipi-otoklav/otoklav.png",
+            "images/products/b-tipi-otoklav/otoklav-23lt.jpeg"
+        ]
+    },
+    "cromatic-aljinat": {
+        kategori: "Ölçü Maddeleri",
+        baslik: "Cromatic Aljinat (453g)",
+        aciklama: "Fazlı kromatik göstergeli diş ölçüleri için geliştirilmiş tozsuz ve glütensiz premium aljinattır. Çalışma ve sertleşme süresi boyunca renk değiştiren bileşenleri sayesinde hatasız kullanım sağlar.",
+        ozellikler: [
+            "Özel formülasyonu sayesinde kullanım sırasında tozu tamamen ortadan kaldırır.",
+            "Fazlı kromatik gösterge: Karıştırma ve çalışma süreleri tutmanıza gerek kalmadan doğru kullanım sunar.",
+            "3 farklı renk aşaması ile görsel takip kolaylığı.",
+            "Glütensiz ve hipoalerjenik yapı.",
+            "Paketleme Detayları: 453g"
+        ],
+        gorseller: [
+            "images/products/cromatic-aljinat/cromatic.jpeg",
+            "images/products/cromatic-aljinat/cromatic-aljinat.jpeg"
+        ]
+    },
+    "prestige-a-tipi-set": {
+        kategori: "Ölçü Maddeleri",
+        baslik: "Prestige A Tipi Ölçü Seti",
+        aciklama: "Yüksek kaliteli ve hassas diş ilk izlenimleri için tasarlanmış, çift izlenim tekniğinde kullanılmak üzere ekstra yumuşak, hızlı sertleşen tiksotropik ek silikon. Özellikle çalışma aşamasında yumuşak, ağızda hızlı sertleşme süresi sunar. Vulkanizasyondan sonra dengeli sertlik, hastanın ağzından kolayca çıkarılmasını sağlar. Çalışma ve kürlenme süresi arasında uygun oran ve yüksek boyutsal kararlılık sunar.",
+        ozellikler: [
+            "Çift izlenim tekniği için ideal ekstra yumuşak yapı.",
+            "Hızlı sertleşme özelliği sayesinde klinik konforu.",
+            "Yüksek boyutsal kararlılık ve hassas detay reprodüksiyonu.",
+            "Paket İçeriği: Prestige Putty Soft 300ml Baz + 300ml Katalizör + 2 x 50 ml Prestige Light Kartuş."
+        ],
+        gorseller: [
+            "images/products/prestige-a-tipi-set/prestige a tipi 1. ölçü.jpeg",
+            "images/products/prestige-a-tipi-set/1. ölçü a tipi.jpeg",
+            "images/products/prestige-a-tipi-set/2. ölçü a tipi.jpeg",
+            "images/products/prestige-a-tipi-set/a tipi 1. ölçü.jpeg",
+            "images/products/prestige-a-tipi-set/a tipi 2..jpeg"
+        ]
+    },
+    "prestige-labor": {
+        kategori: "Laboratuvar Ürünleri",
+        baslik: "Prestige Labor A Silikon (5+5 kg)",
+        aciklama: "Laboratuvar için yüksek kesinlikte A silikon ve protez dublikasyonu sağlamaktadır. Metal yapı tasarımında kontrol şablonu, mufla içindeki protezi yüksek sıcaklıktan izole eder ve korur.",
+        ozellikler: [
+            "130 dereceye kadar yüksek ısıya dayanıklıdır.",
+            "Hassas metal yapı tasarımlarında kusursuz kontrol şablonu görevi görür.",
+            "Paketleme Detayları: 5 kg Baz + 5 kg Katalizör."
+        ],
+        gorseller: [
+            "images/products/prestige-labor/prestige 5+5 labor.jpeg"
+        ]
+    },
+    "prestige-vdg-mask": {
+        kategori: "Laboratuvar Ürünleri",
+        baslik: "Prestige VDG Mask",
+        aciklama: "Rigid, yüksek hassasiyetli gingival maskelerin yeniden üretimi için geliştirilmiş bir ek silikondur. Hassas bir tanımlama aralığı, yüksek doğruluk ve boyutsal stabilite sağlar. Uygulama sırasında yüksek akışkanlık ve vulkanizasyondan sonra dengeli bir sertlik sunar.",
+        ozellikler: [
+            "Model üzerinde gingivanın bitirilmesi sırasında kenarların kesilmesini kolaylaştıran dengeli sertlik.",
+            "Doğrudan teknikle kullanım için özel formülasyon.",
+            "Paketleme Detayları: 2 x 50 ml Kartuş + Separator."
+        ],
+        gorseller: [
+            "images/products/prestige-vdg-mask/vdg mask.jpeg",
+            "images/products/prestige-vdg-mask/prestige vdg mask.jpeg"
+        ]
+    },
+    
+    "protesil-elastic-aljinat": {
+        kategori: "Ölçü Maddeleri",
+        baslik: "Protesil Elastic Aljinat (500g)",
+        aciklama: "Ortodontik diş ölçüleri için tiksotropik hızlı sertleşen elastik aljinat. Ürünün yüksek elastikiyeti, yüksek hassasiyetli diş ölçülerinin yeniden üretilmesini ve deformasyon olmadan ağızdan kolayca çıkarılmasını sağlar.",
+        ozellikler: [
+            "Ekstra ince kıvam ve optimum alçı uyumluluğu.",
+            "Alerji riskini minimize eden glütensiz yapı.",
+            "Paketleme Detayları: 500g"
+        ],
+        gorseller: [
+            "images/products/protesil-elastic-aljinat/protesil elastic aljinat.jpeg",
+            "images/products/protesil-elastic-aljinat/protesil aljinat elastic.jpeg"
+
+        ]
+    },
+
+    "protesil-labor": {
+        kategori: "Laboratuvar Ürünleri",
+        baslik: "Protesil Labor Silikon",
+        aciklama: "Çok yüksek kıvamlı, yüksek viskoziteli, özellikle teknisyen laboratuvarı için formüle edilmiş kondensasyon silikonudur[cite: 12]. Kırmızı tonu sayesinde homojen bir karışımın tanımlanmasına izin veren Protesil Catalyst Gel Labor ile birlikte kullanılır[cite: 12].",
+        ozellikler: [
+            "80 Shore A yüksek sertlik derecesi[cite: 12].",
+            "130°C'den fazla ısıya karşı yüksek direnç[cite: 12].",
+            "Paketleme Detayları: 5 kg + 2 Katalizör veya 25 kg + 7 Katalizör seçenekleri[cite: 12]."
+        ],
+        gorseller: [
+            "images/products/protesil-labor/protesil labor katalizör.jpeg",
+            "images/products/protesil-labor/protesil 5 kg labor.jpeg",
+            "images/products/protesil-labor/protesil labor 5 kg.jpeg"
+        ]
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     
+    if (typeof navigasyonUrunleriOlustur === 'function') {
+        navigasyonUrunleriOlustur();
+    }
+
+    if (typeof anaSayfaCarouselOlustur === 'function') {
+            anaSayfaCarouselOlustur();
+    }
     // --- MOBİL MENÜ (HAMBURGER) İŞLEVİ ---
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
@@ -101,9 +242,13 @@ function urunleriListele() {
 
     // 2. Her Kategori İçin Ayrı Bir Carousel (Slider) Çiz
     for (const [kategoriAdi, urunlerListesi] of Object.entries(kategoriler)) {
-        
+
+        const katSlug = kategoriAdi.toLowerCase()
+                    .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
+                    .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
+                    .replace(/[^a-z0-9]/g, '-');
         let kategoriHTML = `
-        <div class="category-slider-section" style="margin-bottom: 70px;">
+        <div id="${katSlug}" class="category-slider-section" style="margin-bottom: 70px;">
             <div class="section-title">
                 <h2 style="font-size: 2.2rem; margin-bottom: 30px;">${kategoriAdi}</h2>
             </div>
@@ -158,8 +303,96 @@ function urunleriListele() {
     });
 }
 
-// Sayfa yüklendiğinde çalıştır
-document.addEventListener('DOMContentLoaded', urunleriListele);
+// ==========================================================================
+// ANA SAYFA ÖNE ÇIKAN ÜRÜNLER OTOMASYONU
+// ==========================================================================
+
+function anaSayfaCarouselOlustur() {
+    // Sadece ana sayfadaki ürünler bölümü varsa çalışsın
+    const carouselTrack = document.getElementById('featured-carousel-track');
+    if (!carouselTrack) return;
+
+    // Öne çıkarmak istediğimiz ürünlerin ID'leri
+    const seciliUrunler = ['b-tipi-otoklav-23lt', 'protesil-set', 'cromatic-aljinat', 'prestige-labor'];
+    
+    carouselTrack.innerHTML = ''; // İçeriği temizle
+
+    seciliUrunler.forEach(id => {
+        const urun = urunVerileri[id];
+        if (urun) {
+            // Görsel kontrolü (Gorseller dizisi varsa ilkini, yoksa placeholder kullan)
+            let gorselYolu = "images/placeholder.jpg";
+            if (urun.gorseller && urun.gorseller.length > 0) {
+                gorselYolu = urun.gorseller[0];
+            }
+
+            const kartHTML = `
+                <div class="product-card">
+                    <div class="product-img" style="background-color: #fff;">
+                        <img src="${gorselYolu}" alt="${urun.baslik}" style="width:100%; height:100%; object-fit:contain; padding:20px;">
+                    </div>
+                    <div class="product-info">
+                        <h3 style="margin-bottom:15px; font-size:1.1rem; color:#2C3539;">${urun.baslik}</h3>
+                        <a href="urun-detay.html?id=${id}" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a>
+                    </div>
+                </div>
+            `;
+            carouselTrack.innerHTML += kartHTML;
+        }
+    });
+}
+
+// ==========================================================================
+// DİNAMİK NAVİGASYON (MENÜ) OLUŞTURUCU
+// ==========================================================================
+
+function navigasyonUrunleriOlustur() {
+    const navContainer = document.getElementById('dynamic-nav-products');
+    if (!navContainer) return; // Eğer sayfada bu id'li menü yoksa işlem yapma
+
+    // 1. Ürünleri Kategorilerine Göre Grupla
+    const kategoriler = {};
+    for (const [urunId, urunDetayi] of Object.entries(urunVerileri)) {
+        const katAdi = urunDetayi.kategori;
+        if (!kategoriler[katAdi]) {
+            kategoriler[katAdi] = [];
+        }
+        kategoriler[katAdi].push({ id: urunId, ...urunDetayi });
+    }
+
+    // 2. Menünün En Üstüne "Tüm Ürünler" Linkini Ekle
+    let navHTML = `<li><a href="urunler.html" style="font-weight: bold; border-bottom: 1px solid #eee;">Tüm Ürünler</a></li>`;
+
+    // 3. Her Kategori ve Altındaki Ürünler İçin Döngü Kur
+    for (const [kategoriAdi, urunlerListesi] of Object.entries(kategoriler)) {
+        
+        // Türkçe karakterleri temizleyerek güvenli bir link hash'i (#) oluşturur
+        // Örn: "Ölçü Maddeleri" -> "olcu-maddeleri" olur ve sayfada o alana kaydırır
+        const katSlug = kategoriAdi.toLowerCase()
+            .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
+            .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
+            .replace(/[^a-z0-9]/g, '-');
+
+        navHTML += `
+            <li class="dropdown-submenu">
+                <a href="urunler.html#${katSlug}">${kategoriAdi} <span>▸</span></a>
+                <ul class="dropdown-menu-side">
+        `;
+
+        // Kategorinin altındaki ürünleri alt menüye diz
+        urunlerListesi.forEach(urun => {
+            navHTML += `<li><a href="urun-detay.html?id=${urun.id}">${urun.baslik}</a></li>`;
+        });
+
+        navHTML += `
+                </ul>
+            </li>
+        `;
+    }
+
+    // Oluşturulan yapıyı HTML içerisine enjekte et
+    navContainer.innerHTML = navHTML;
+}
 
 // Sayfa yüklendiğinde bu otomasyonu çalıştır
 document.addEventListener('DOMContentLoaded', urunleriListele);

@@ -32,35 +32,7 @@
 
                 <li class="dropdown">
                     <a href="urunler.html">Ürünler ▾</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="urunler.html" style="font-weight: bold; border-bottom: 1px solid #eee;">Tüm Ürünler</a></li>
-                        
-                        <li class="dropdown-submenu">
-                            <a href="urunler.html#sarf">Sarf Malzemeleri <span>▸</span></a>
-                            <ul class="dropdown-menu-side">
-                                <li><a href="urun-detay.html?id=kompozit">Kompozit Dolgu Seti</a></li>
-                                <li><a href="urun-detay.html?id=sterilizasyon">Sterilizasyon Rulosu</a></li>
-                                <li><a href="urun-detay.html?id=eldiven">Lateks Muayene Eldiveni</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown-submenu">
-                            <a href="urunler.html#implant">İmplant Sistemleri <span>▸</span></a>
-                            <ul class="dropdown-menu-side">
-                                <li><a href="urun-detay.html?id=titanyum-implant">Titanyum İmplant</a></li>
-                                <li><a href="urun-detay.html?id=abutment">Abutment Çeşitleri</a></li>
-                                <li><a href="urun-detay.html?id=implant-vidalari">İmplant Kapak Vidaları</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown-submenu">
-                            <a href="urunler.html#cerrahi">Cerrahi Aletler <span>▸</span></a>
-                            <ul class="dropdown-menu-side">
-                                <li><a href="urun-detay.html?id=frez">Cerrahi Frez Kiti</a></li>
-                                <li><a href="urun-detay.html?id=davye">Diş Çekim Davyeleri</a></li>
-                                <li><a href="urun-detay.html?id=elevator">Elevatör Seti</a></li>
-                            </ul>
-                        </li>
+                    <ul class="dropdown-menu" id="dynamic-nav-products">
                     </ul>
                 </li>
                 <li><a href="duyurular.html">Duyurular</a></li>
@@ -104,12 +76,10 @@
             <div class="section-title"><h2>Öne Çıkan Ürünlerimiz</h2></div>
             <div class="carousel-container">
                 <button class="carousel-btn prev-btn">&#10094;</button>
-                <div class="carousel-track">
-                    <div class="product-card"><div class="product-img">Görsel 1</div><div class="product-info"><h3>Kompozit Dolgu Seti</h3><a href="urun-detay.html?id=kompozit" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
-                    <div class="product-card"><div class="product-img">Görsel 2</div><div class="product-info"><h3>Titanyum İmplant</h3><a href="urun-detay.html?id=implant" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
-                    <div class="product-card"><div class="product-img">Görsel 3</div><div class="product-info"><h3>Cerrahi Frez Kiti</h3><a href="urun-detay.html?id=frez" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
-                    <div class="product-card"><div class="product-img">Görsel 4</div><div class="product-info"><h3>Sterilizasyon Rulosu</h3><a href="urun-detay.html?id=sterilizasyon" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
+                
+                <div class="carousel-track" id="featured-carousel-track">
                 </div>
+                
                 <button class="carousel-btn next-btn">&#10095;</button>
             </div>
         </div>
@@ -197,7 +167,6 @@
             <p>&copy; 2026 Çınar Diş Deposu. Tüm hakları saklıdır.</p>
         </div>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
