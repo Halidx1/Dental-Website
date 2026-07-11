@@ -13,23 +13,42 @@
 </head>
 <body>
 
-    <!-- Navigasyon -->
+<!-- EVRENSEL NAVİGASYON (TÜM SAYFALAR İÇİN) -->
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo">Çınar Diş Deposu</a>
             
-            <!-- Mobil İçin Hamburger Butonu Eklendi -->
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="index.html#about">Hakkımızda</a></li>
-                <li><a href="urunler.html" style="color: var(--color-primary);">Ürünler</a></li>
-                <li><a href="index.html#contact" class="btn-outline">İletişim</a></li>
+                
+                <!-- HAKKIMIZDA AÇILIR MENÜSÜ -->
+                <li class="dropdown">
+                    <a href="index.html#about">Kurumsal &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#about">Hakkımızda</a></li>
+                        <li><a href="index.html#about">Misyonumuz</a></li>
+                        <li><a href="index.html#brands">Markalarımız</a></li>
+                        <li><a href="index.html#about">Sertifikalarımız</a></li>
+                        <li><a href="index.html#about">Gizlilik Politikası</a></li>
+                    </ul>
+                </li>
+
+                <!-- ÜRÜNLER AÇILIR MENÜSÜ -->
+                <li class="dropdown">
+                    <a href="urunler.html">Ürünler &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="urunler.html">Tüm Ürünler</a></li>
+                        <li><a href="urunler.html#sarf">Klinik Sarf Malzemeleri</a></li>
+                        <li><a href="urunler.html#implant">İmplant Sistemleri</a></li>
+                        <li><a href="urunler.html#cerrahi">Cerrahi Aletler</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="iletisim.html" class="btn-outline">İletişim & Şubeler</a></li>
             </ul>
         </div>
     </nav>
@@ -56,7 +75,7 @@
                     <ul class="spec-list" id="product-specs">
                         </ul>
 
-                    <a href="index.html#contact" class="btn-primary" style="margin-top: 30px;">Fiyat ve Bilgi Alın</a>
+                    <a href="iletisim.html" class="btn-primary" style="margin-top: 30px;">Fiyat ve Bilgi Alın</a>
                 </div>
             </div>
         </div>

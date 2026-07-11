@@ -4,32 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Çınar Diş Deposu | Premium Dental Çözümler</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Navigasyon -->
+<!-- EVRENSEL NAVİGASYON (TÜM SAYFALAR İÇİN) -->
     <nav class="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo">Çınar Diş Deposu</a>
             
-            <!-- Mobil İçin Hamburger Butonu Eklendi -->
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Ana Sayfa</a></li>
-                <li><a href="index.html#about">Hakkımızda</a></li>
-                <li><a href="urunler.html" style="color: var(--color-primary);">Ürünler</a></li>
-                <li><a href="index.html#contact" class="btn-outline">İletişim</a></li>
+                
+                <!-- HAKKIMIZDA AÇILIR MENÜSÜ -->
+                <li class="dropdown">
+                    <a href="index.html#about">Kurumsal &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#about">Hakkımızda</a></li>
+                        <li><a href="index.html#about">Misyonumuz</a></li>
+                        <li><a href="index.html#brands">Markalarımız</a></li>
+                        <li><a href="index.html#about">Sertifikalarımız</a></li>
+                        <li><a href="index.html#about">Gizlilik Politikası</a></li>
+                    </ul>
+                </li>
+
+                <!-- ÜRÜNLER AÇILIR MENÜSÜ -->
+                <li class="dropdown">
+                    <a href="urunler.html">Ürünler &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="urunler.html">Tüm Ürünler</a></li>
+                        <li><a href="urunler.html#sarf">Klinik Sarf Malzemeleri</a></li>
+                        <li><a href="urunler.html#implant">İmplant Sistemleri</a></li>
+                        <li><a href="urunler.html#cerrahi">Cerrahi Aletler</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="iletisim.html" class="btn-outline">İletişim & Şubeler</a></li>
             </ul>
         </div>
     </nav>
@@ -38,7 +53,7 @@
         <div class="container hero-content">
             <h1>Diş Hekimliğinde Premium Standartlar</h1>
             <p>Kliniklerin ihtiyaç duyduğu yenilikçi, güvenilir ve yüksek kaliteli dental malzemeler.</p>
-            <a href="#about" class="btn-primary">Bizi Tanıyın</a>
+            <a href="urunler.html" class="btn-primary">Ürünleri Keşfedin</a>
         </div>
     </header>
 
@@ -49,109 +64,70 @@
             </div>
             <div class="about-text">
                 <p>Çınar Diş Deposu olarak, diş hekimliği sektöründe kalite ve güvenin köklü sembolü olmayı hedefliyoruz. Modern tıbbın gereksinimlerine uygun, yenilikçi ve uluslararası standartlarda sertifikalı dental malzemeleri kliniklerinize doğrudan ulaştırıyoruz.</p>
-                <p>Amacımız, hekimlerimizin hastalarına en kusursuz tedaviyi sunabilmesi için ihtiyaç duydukları premium altyapıyı eksiksiz şekilde sağlamaktır. Uzman kadromuz ve kesintisiz destek anlayışımızla her zaman yanınızdayız.</p>
             </div>
         </div>
     </section>
 
     <section id="products" class="products-section">
         <div class="container">
-            <div class="section-title">
-                <h2>Öne Çıkan Ürünlerimiz</h2>
-                <p>Detaylı bilgi için ürünleri inceleyebilirsiniz.</p>
-            </div>
-            
+            <div class="section-title"><h2>Öne Çıkan Ürünlerimiz</h2></div>
             <div class="carousel-container">
-                <button class="carousel-btn prev-btn" id="prevBtn">&#10094;</button>
-                
-                <div class="carousel-track" id="carouselTrack">
-                    
-                    <div class="product-card">
-                        <div class="product-img">Görsel 1</div>
-                        <div class="product-info">
-                            <h3>Kompozit Dolgu Seti</h3>
-                            <a href="urun-detay.html?id=kompozit" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-img">Görsel 2</div>
-                        <div class="product-info">
-                            <h3>Titanyum İmplant</h3>
-                            <a href="urun-detay.html?id=implant" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-img">Görsel 3</div>
-                        <div class="product-info">
-                            <h3>Cerrahi Frez Kiti</h3>
-                            <a href="urun-detay.html?id=frez" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <div class="product-img">Görsel 4</div>
-                        <div class="product-info">
-                            <h3>Sterilizasyon Rulosu</h3>
-                            <a href="urun-detay.html?id=sterilizasyon" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card">
-                        <div class="product-img">Görsel 5</div>
-                        <div class="product-info">
-                            <h3>Klinik Önlüğü</h3>
-                            <a href="urun-detay.html?id=onluk" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a>
-                        </div>
-                    </div>
-
+                <button class="carousel-btn prev-btn">&#10094;</button>
+                <div class="carousel-track">
+                    <div class="product-card"><div class="product-img">Görsel 1</div><div class="product-info"><h3>Kompozit Dolgu Seti</h3><a href="urun-detay.html?id=kompozit" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
+                    <div class="product-card"><div class="product-img">Görsel 2</div><div class="product-info"><h3>Titanyum İmplant</h3><a href="urun-detay.html?id=implant" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
+                    <div class="product-card"><div class="product-img">Görsel 3</div><div class="product-info"><h3>Cerrahi Frez Kiti</h3><a href="urun-detay.html?id=frez" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
+                    <div class="product-card"><div class="product-img">Görsel 4</div><div class="product-info"><h3>Sterilizasyon Rulosu</h3><a href="urun-detay.html?id=sterilizasyon" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-top: 10px;">Detaylı İncele</a></div></div>
                 </div>
-                
-                <button class="carousel-btn next-btn" id="nextBtn">&#10095;</button>
+                <button class="carousel-btn next-btn">&#10095;</button>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
-        <div class="container contact-grid">
-            
-            <div class="contact-info">
-                <h2>Bizimle İletişime Geçin</h2>
-                <p>Ürünlerimiz hakkında fiyat talebi veya detaylı bilgi almak için formu doldurabilirsiniz. Uzman ekibimiz en kısa sürede size dönüş yapacaktır.</p>
+    <section id="brands" class="brands-section">
+        <div class="container">
+            <h4 style="text-align: center; color: #888; font-family: var(--font-body); margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">Güvenilir Çözüm Ortaklarımız</h4>
+        </div>
+        
+        <div class="brands-marquee">
+            <div class="brands-track">
+                <div class="logo-box">Marka 1</div>
+                <div class="logo-box">Marka 2</div>
+                <div class="logo-box">Marka 3</div>
+                <div class="logo-box">Marka 4</div>
+                <div class="logo-box">Marka 5</div>
+                <div class="logo-box">Marka 6</div>
+                <div class="logo-box">Marka 7</div>
+                <div class="logo-box">Marka 8</div>
+                <div class="logo-box">Marka 9</div>
+                <div class="logo-box">Marka 10</div>
                 
-                <div class="address-box">
-                    <h4>Adresimiz:</h4>
-                    <p>Örnek Mahallesi, Çınar Caddesi No:12<br>Fatih, İstanbul</p>
-                    
-                    <h4>İletişim Bilgileri:</h4>
-                    <p><strong>E-posta:</strong> info@cinardisdeposu.com</p>
-                    <p><strong>Telefon:</strong> +90 212 555 55 55</p>
-                </div>
-
-                <div class="map-wrapper-inline">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48172.84042825424!2d28.9056262174351!3d41.01897361661642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab98d28cb1749%3A0xcb03e2c6946ce23f!2sFatih%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" 
-                        width="100%" 
-                        height="250" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
+                <div class="logo-box">Marka 1</div>
+                <div class="logo-box">Marka 2</div>
+                <div class="logo-box">Marka 3</div>
+                <div class="logo-box">Marka 4</div>
+                <div class="logo-box">Marka 5</div>
+                <div class="logo-box">Marka 6</div>
+                <div class="logo-box">Marka 7</div>
+                <div class="logo-box">Marka 8</div>
+                <div class="logo-box">Marka 9</div>
+                <div class="logo-box">Marka 10</div>
             </div>
-            
-            <div class="contact-form-wrapper">
-                <form name="iletisim" method="POST" data-netlify="true" class="premium-form">
-                    <input type="text" name="isim" placeholder="Adınız Soyadınız" required>
-                    <input type="email" name="email" placeholder="E-posta Adresiniz" required>
-                    <input type="text" name="klinik" placeholder="Klinik veya Kurum Adı">
-                    <textarea name="mesaj" rows="8" placeholder="Lütfen mesajınızı veya talep ettiğiniz ürünleri yazın..." required></textarea>
-                    <button type="submit" class="btn-primary">Mesajı Gönder</button>
-                </form>
-            </div>
+        </div>
+    </section>
 
+    <section class="cta-section">
+        <div class="container cta-grid">
+            <div class="cta-left">
+                <h2>Talepleriniz İçin</h2>
+                <p>Klinik ihtiyaçlarınız, fiyat talepleriniz ve siparişleriniz için uzman satış ekibimize form üzerinden anında ulaşabilirsiniz.</p>
+                <a href="iletisim.html" class="btn-primary" style="background: transparent; border-color: #fff; color: #fff;">Bizimle İletişime Geçin</a>
+            </div>
+            <div class="cta-right">
+                <h2>Teknik Servis & Onarım</h2>
+                <p>Klinik cihaz arızaları, periyodik bakım ve onarım destek hizmetlerimiz için teknik ekibimize direkt olarak ulaşın.</p>
+                <h3 style="color: var(--color-primary); font-size: 2rem; margin-top: 10px; font-family: var(--font-body);">+90 212 555 55 55</h3>
+            </div>
         </div>
     </section>
 
@@ -161,24 +137,33 @@
                 <h3>Çınar Diş Deposu</h3>
                 <p>Kliniklerinizin ihtiyaç duyduğu premium dental çözümler. Sektörde kalite ve güvenin köklü adresi.</p>
             </div>
+            
             <div class="footer-links-box">
-                <h4>Hızlı Bağlantılar</h4>
+                <h4>Kurumsal</h4>
                 <ul>
-                    <li><a href="#hero">Ana Sayfa</a></li>
                     <li><a href="#about">Hakkımızda</a></li>
-                    <li><a href="#products">Ürünlerimiz</a></li>
-                    <li><a href="#contact">İletişim Formu</a></li>
+                    <li><a href="#brands">Markalarımız</a></li>
+                    <li><a href="iletisim.html">Şubelerimiz</a></li>
                 </ul>
             </div>
+
+            <div class="footer-links-box">
+                <h4>Kategoriler</h4>
+                <ul>
+                    <li><a href="urunler.html">Sarf Malzemeleri</a></li>
+                    <li><a href="urunler.html">İmplant Sistemleri</a></li>
+                    <li><a href="urunler.html">Cerrahi Aletler</a></li>
+                </ul>
+            </div>
+            
             <div class="footer-contact-box">
-                <h4>İletişim Bilgileri</h4>
-                <p><strong>Adres:</strong> Örnek Mahallesi, Çınar Caddesi No:12 Fatih / İstanbul</p>
+                <h4>Genel Merkez</h4>
+                <p>Örnek Mah. Çınar Cad. No:12<br>Fatih / İstanbul</p>
                 <p><strong>Telefon:</strong> +90 212 555 55 55</p>
-                <p><strong>E-posta:</strong> info@cinardisdeposu.com</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Çınar Diş Deposu. Tüm hakları saklıdır. Yüksek standartlı dental çözümler.</p>
+            <p>&copy; 2026 Çınar Diş Deposu. Tüm hakları saklıdır.</p>
         </div>
     </footer>
 

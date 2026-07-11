@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İletişim ve Şubeler | Çınar Diş Deposu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- EVRENSEL NAVİGASYON (TÜM SAYFALAR İÇİN) -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Çınar Diş Deposu</a>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                
+                <!-- HAKKIMIZDA AÇILIR MENÜSÜ -->
+                <li class="dropdown">
+                    <a href="index.html#about">Kurumsal &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html#about">Hakkımızda</a></li>
+                        <li><a href="index.html#about">Misyonumuz</a></li>
+                        <li><a href="index.html#brands">Markalarımız</a></li>
+                        <li><a href="index.html#about">Sertifikalarımız</a></li>
+                        <li><a href="index.html#about">Gizlilik Politikası</a></li>
+                    </ul>
+                </li>
+
+                <!-- ÜRÜNLER AÇILIR MENÜSÜ -->
+                <li class="dropdown">
+                    <a href="urunler.html">Ürünler &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="urunler.html">Tüm Ürünler</a></li>
+                        <li><a href="urunler.html#sarf">Klinik Sarf Malzemeleri</a></li>
+                        <li><a href="urunler.html#implant">İmplant Sistemleri</a></li>
+                        <li><a href="urunler.html#cerrahi">Cerrahi Aletler</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="iletisim.html" class="btn-outline">İletişim & Şubeler</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero-section" style="height: 40vh; background-color: var(--color-dark);">
+        <div class="container hero-content" style="padding-top: 50px;">
+            <h1 style="font-size: 3rem;">İletişim ve Şubeler</h1>
+            <p>Bize ulaşın veya size en yakın şubemizi ziyaret edin.</p>
+        </div>
+    </header>
+
+    <section class="contact-page-section">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <div class="addresses">
+                    <h2 style="margin-bottom: 20px;">Şubelerimiz</h2>
+                    <p style="color: #666; margin-bottom: 30px;">Dental teknoloji ve donanım ihtiyaçlarınızı yerinde incelemek için şubelerimizi ziyaret edebilirsiniz.</p>
+                    
+                    <div class="address-box">
+                        <h4 style="color: var(--color-primary);">Genel Merkez Şube</h4>
+                        <p>Örnek Mahallesi, Çınar Caddesi İş Merkezi No:12<br>Fatih / İstanbul</p>
+                        <p style="margin-top: 10px;"><strong>Tel:</strong> +90 212 555 55 55</p>
+                        <p><strong>Mail:</strong> info@cinardisdeposu.com</p>
+                    </div>
+
+                    <div class="address-box">
+                        <h4 style="color: var(--color-primary);">İkincil (Depo) Şube</h4>
+                        <p>Sanayi Mahallesi, Lojistik Sokak No:4<br>Esenler / İstanbul</p>
+                        <p style="margin-top: 10px;"><strong>Tel:</strong> +90 212 444 44 44</p>
+                        <p><strong>Mail:</strong> depo@cinardisdeposu.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <h2 style="margin-bottom: 20px;">Bize Ulaşın</h2>
+                    <form name="iletisim" method="POST" data-netlify="true" class="premium-form">
+                        <input type="text" name="isim" placeholder="Adınız Soyadınız" required>
+                        <input type="email" name="email" placeholder="E-posta Adresiniz" required>
+                        <input type="text" name="klinik" placeholder="Klinik veya Kurum Adı">
+                        <textarea name="mesaj" rows="8" placeholder="Mesajınızı veya taleplerinizi detaylıca yazabilirsiniz..." required></textarea>
+                        <button type="submit" class="btn-primary">Mesajı Gönder</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="map-full-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192697.79327429118!2d28.871754026867375!3d41.00549580924976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa7040068086b%3A0xe1ccfe98bc01b0d0!2zxLBzdGFuYnVs!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+        </div>
+    </section>
+
+    <footer style="background-color: var(--color-dark); color: #fff; text-align: center; padding: 40px 0;">
+        <p>&copy; 2026 Çınar Diş Deposu. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
