@@ -191,7 +191,7 @@ a { text-decoration: none; transition: 0.3s ease; }
 .carousel-btn:hover { background-color: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 .prev-btn { left: 0; } .next-btn { right: 0; }
 
-/* --- MARKALAR YATAY CAROUSEL (NİHAİ VE KUSURSUZ ÇÖZÜM) --- */
+/* --- MARKALAR YATAY CAROUSEL (MİKRO ATLAMASI GİDERİLMİŞ NİHAİ KOD) --- */
 .brands-section { 
     padding: 50px 0; 
     background-color: #fff; 
@@ -207,22 +207,22 @@ a { text-decoration: none; transition: 0.3s ease; }
 .brands-track { 
     display: flex; 
     align-items: center; 
-    width: max-content; /* İçeriğe göre sonsuz genişler, daralmaz */
+    width: max-content; 
+    /* YENİ: Tarayıcıyı animasyona hazırlar, ekran kartını (GPU) devreye sokarak atlamayı önler */
+    will-change: transform; 
     animation: scrollBrands 25s linear infinite; 
 }
 
-/* Gerçek logolar (img) ve test kutuları (logo-box) için ortak stil */
 .brands-track img,
 .logo-box { 
     width: 150px; 
     height: 60px; 
-    margin: 0 40px; /* Logolar arası 80px kusursuz boşluk */
+    margin: 0 40px; 
     object-fit: contain; 
     filter: grayscale(100%); 
     opacity: 0.5; 
     transition: 0.3s; 
     
-    /* Yüklenme gecikmesini sıfırlayan HTML Test Kutusu Stilleri */
     background-color: #f5f5f5;
     display: flex;
     align-items: center;
@@ -238,10 +238,10 @@ a { text-decoration: none; transition: 0.3s ease; }
     opacity: 1; 
 }
 
-/* Kutu tam yarıya (%50) geldiğinde hiç çaktırmadan başa (0) döner */
+/* YENİ: Yüzde (-50%) hesaplaması kaldırıldı. Onun yerine translate3d ile kesin ölçü (2300px) verildi. */
 @keyframes scrollBrands { 
-    0% { transform: translateX(0); } 
-    100% { transform: translateX(-50%); } 
+    0% { transform: translate3d(0, 0, 0); } 
+    100% { transform: translate3d(-2300px, 0, 0); } 
 }
 
 /* --- ANA SAYFA ÇAĞRI (CTA) ALANI (YENİ) --- */
