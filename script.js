@@ -1,4 +1,4 @@
-        // ÜRÜN VERİTABANI (Yeni ürün eklemek istediğinde sadece buraya eklemen yeterli)
+// ÜRÜN VERİTABANI
 const urunVerileri = {
     "protesil-set": {
         kategori: "Ölçü Maddeleri",
@@ -40,13 +40,16 @@ const urunVerileri = {
     "cromatic-aljinat": {
         kategori: "Ölçü Maddeleri",
         baslik: "Cromatic Aljinat (453g)",
-        aciklama: "Fazlı kromatik göstergeli diş ölçüleri için geliştirilmiş tozsuz ve glütensiz premium aljinattır. Çalışma ve sertleşme süresi boyunca renk değiştiren bileşenleri sayesinde hatasız kullanım sağlar.",
+        aciklama: "Cromatic, yüksek hassasiyet gerektiren diş ölçüleri için geliştirilmiş, fazlı kromatik göstergeye sahip premium bir aljinattır. Özel formülasyonu, karıştırma ve sertleşme sürelerini takip etme zorunluluğunu ortadan kaldırarak; çalışma ve sertleşme süresi boyunca renk değiştiren bileşenleri sayesinde hatasız bir kullanım süreci sunar. Rutin diş ölçüleri, protez çalışmaları ve çalışma modelleri gibi pek çok alanda ideal sonuçlar verir.",
         ozellikler: [
-            "Özel formülasyonu sayesinde kullanım sırasında tozu tamamen ortadan kaldırır.",
-            "Fazlı kromatik gösterge: Karıştırma ve çalışma süreleri tutmanıza gerek kalmadan doğru kullanım sunar.",
-            "3 farklı renk aşaması ile görsel takip kolaylığı.",
-            "Glütensiz ve hipoalerjenik yapı.",
-            "Paketleme Detayları: 453g"
+            "Fazlı Kromatik Gösterge: 3 farklı renk aşaması ile karıştırma ve çalışma sürelerini görsel olarak takip etme kolaylığı sağlar.",
+            "Tozsuz ve Glütensiz: Özel formülasyonu sayesinde kullanım sırasında tozu tamamen ortadan kaldırır; glütensiz ve hipoalerjenik yapısıyla güvenli bir kullanım sunar.",
+            "Yüksek Detay Tanımı: Model üzerinde mükemmel detay hassasiyeti sağlar ve deformasyon olmadan kolayca çıkarılır.",
+            "Optimum Alçı Uyumu: Alçı modellerle mükemmel uyum göstererek yüzey kalitesini artırır.",
+            "Konfor: Vanilla aroması ile hasta konforunu destekler.",
+            "Standartlar: ISO 21563 sertifikasına sahiptir.",
+            "Sertleşme Süresi: 2 dakika 35 saniye",
+            "Ambalaj: 453g paket"
         ],
         gorseller: [
             "images/products/cromatic-aljinat/cromatic.jpeg",
@@ -132,6 +135,16 @@ const urunVerileri = {
     }
 };
 
+// MARKA VERİTABANI
+const markaVerileri = [
+    { ad: "Vannini Dental", logo: "images/brands/vanini.png", url: "https://www.vanninidental.com" },
+    { ad: "Zhermack", logo: "images/brands/zhermack.png", url: "https://www.zhermack.com" },
+    { ad: "3M Espe", logo: "images/brands/3m.png", url: "https://www.3m.com.tr" },
+    { ad: "Kerr Dental", logo: "images/brands/kerr.png", url: "https://www.kerrdental.com" },
+    { ad: "Kulzer", logo: "images/brands/kulzer.png", url: "https://www.kulzer.com" }
+    // İleride buraya yeni markaları aynı formatta ekleyebilirsiniz.
+];
+
 document.addEventListener('DOMContentLoaded', () => {
     
     if (typeof navigasyonUrunleriOlustur === 'function') {
@@ -141,6 +154,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof anaSayfaCarouselOlustur === 'function') {
             anaSayfaCarouselOlustur();
     }
+
+    // YENİ: Dinamik markaları oluştur
+    if (typeof dinamikMarkalariOlustur === 'function') {
+        dinamikMarkalariOlustur();
+    }
+
+    // Ürünleri Listele (Tüm Ürünler Sayfası İçin)
+    if (typeof urunleriListele === 'function') {
+        urunleriListele();
+    }
+
+
     // --- MOBİL MENÜ (HAMBURGER) İŞLEVİ ---
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
@@ -191,7 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nextBtn.addEventListener('click', scrollRight);
         prevBtn.addEventListener('click', scrollLeft);
 
-        // HIZLANDIRILMIŞ OTOMATİK KAYMA (2 Saniye)
         let autoPlay = setInterval(scrollRight, 2000);
 
         container.addEventListener('mouseenter', () => clearInterval(autoPlay));
@@ -219,9 +243,9 @@ function nextSlide() {
     slides[currentSlide].classList.add('active');
 }
 
-// ==========================================================================
+// ============================================================
 // KATEGORİLİ VE CAROUSEL (KAYDIRMALI) OTOMATİK ÜRÜN OLUŞTURUCU
-// ==========================================================================
+// ============================================================
 
 function urunleriListele() {
     const anaKutu = document.getElementById('kategorize-urunler-alani');
@@ -394,8 +418,37 @@ function navigasyonUrunleriOlustur() {
     navContainer.innerHTML = navHTML;
 }
 
-// Sayfa yüklendiğinde bu otomasyonu çalıştır
-document.addEventListener('DOMContentLoaded', urunleriListele);
+// ==========================================================================
+// DİNAMİK MARKA CAROUSEL (MARQUEE) OLUŞTURUCU - KUSURSUZ DÖNGÜ
+// ==========================================================================
+
+function dinamikMarkalariOlustur() {
+    const track = document.getElementById('dynamic-brands-track');
+    if (!track) return;
+
+    if (markaVerileri.length === 0) return;
+
+    let markalarHTML = "";
+
+    // Sadece mevcut markaları bir kez HTML'e çeviriyoruz
+    markaVerileri.forEach(marka => {
+        markalarHTML += `
+            <a href="${marka.url}" target="_blank" rel="noopener noreferrer" class="logo-box" title="${marka.ad}">
+                <img src="${marka.logo}" alt="${marka.ad}" onerror="this.style.display='none'; this.parentElement.innerText='${marka.ad}';">
+            </a>
+        `;
+    });
+
+    // 1 Vagon (Slide) oluşturmak için markaları kendi içinde 4 kez çoğaltıyoruz (Ekranı kesin doldurması için)
+    const tekVagon = markalarHTML.repeat(4);
+
+    // Track içine birbirinin BİREBİR AYNISI iki vagon
+    track.innerHTML = `
+        <div class="brands-slide">${tekVagon}</div>
+        <div class="brands-slide">${tekVagon}</div>
+    `;
+}
+
 
 // 5 Saniyede bir dönsün
 setInterval(nextSlide, 5000);
