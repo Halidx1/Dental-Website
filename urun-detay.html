@@ -74,31 +74,32 @@
         </div>
     </nav>
 
-    <section class="product-detail-section" style="padding: 80px 0; background-color: #fff; min-height: 70vh;">
-        <div class="container">
+    <section class="product-detail-section">
+        <div class="container product-container">
             
-            <a href="index.html#products" class="back-link">&larr; Ürünlere Dön</a>
-            
-            <div class="detail-grid">
-                <div class="detail-image" id="product-img">
-                    Ürün Görseli
+            <div class="product-gallery-wrapper">
+                <div class="product-image-box">
+                    <img id="main-product-img" src="images/placeholder.jpg" alt="Ürün Görseli">
+                </div>
+                <div id="thumbnail-gallery" class="thumbnail-gallery"></div>
+            </div>
+
+            <div class="product-info-box">
+                <span id="product-category" class="category-badge">Kategori Yükleniyor...</span>
+                <h1 id="product-title">Ürün Yükleniyor...</h1>
+                <p id="product-desc" class="description">Lütfen bekleyin, ürün bilgileri getiriliyor...</p>
+                
+                <div class="specs-wrapper">
+                    <h3>Teknik Özellikler ve Paketleme</h3>
+                    <ul id="product-specs">
+                        </ul>
                 </div>
                 
-                <div class="detail-info">
-                    <h4 id="product-category" style="color: var(--color-primary); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">Kategori</h4>
-                    <h1 id="product-title" style="font-size: 2.5rem; margin: 10px 0 20px 0;">Ürün Başlığı Yükleniyor...</h1>
-                    
-                    <p id="product-desc" style="color: #666; line-height: 1.8; margin-bottom: 30px;">
-                        Açıklama yükleniyor...
-                    </p>
-                    
-                    <h3 style="margin-bottom: 15px; font-size: 1.2rem;">Teknik Özellikler</h3>
-                    <ul class="spec-list" id="product-specs">
-                        </ul>
-
-                    <a href="iletisim.html" class="btn-primary" style="margin-top: 30px;">Fiyat ve Bilgi Alın</a>
+                <div class="product-action">
+                    <a href="iletisim.html" class="btn-primary">Fiyat ve Bilgi Al</a>
                 </div>
             </div>
+            
         </div>
     </section>
 
@@ -129,78 +130,59 @@
         </div>
     </footer>
 
+    <script src="urun-verileri.js"></script>
     <script>
-        // ÜRÜN VERİTABANI (Yeni ürün eklemek istediğinde sadece buraya eklemen yeterli)
-        const urunVerileri = {
-            "kompozit": {
-                kategori: "Klinik Sarf Malzemeleri",
-                baslik: "Premium Kompozit Dolgu Seti",
-                aciklama: "Bu premium kompozit dolgu seti, ön ve arka diş restorasyonları için mükemmel cilalanabilirlik ve bukalemun efekti (diş rengine uyum) sunar. Yüksek radyoopasiteye sahiptir ve çekme mukavemeti uluslararası standartların üzerindedir.",
-                ozellikler: ["Grade 4 Titanyum ve Seramik karışımı üstün yüzey.", "4 farklı renk şırıngası (A1, A2, A3, B1).", "Uzun ömürlü ve aşınmaya karşı ekstra direnç."],
-                gorsel: "Kompozit Seti Görseli"
-            },
-            "implant": {
-                kategori: "İmplant Sistemleri",
-                baslik: "Titanyum İmplant Vida",
-                aciklama: "Grade 4 saf titanyumdan üretilmiş, kusursuz osteoentegrasyon (kemik kaynaşması) sağlayan SLA yüzey teknolojisine sahip premium implant sistemidir.",
-                ozellikler: ["%100 Saf Grade 4 Titanyum.", "SLA Yüzey Teknolojisi ile hızlı iyileşme.", "Uluslararası sertifikalı, ömür boyu garantili."],
-                gorsel: "İmplant Vida Görseli"
-            },
-            "frez": {
-                kategori: "Cerrahi Aletler",
-                baslik: "Cerrahi Frez Kiti",
-                aciklama: "Paslanmaz çelikten üretilmiş, uzun ömürlü ve yüksek devirlerde bile ısınmayı minimuma indiren profesyonel cerrahi frez seti.",
-                ozellikler: ["Isınma yapmayan özel tasarım.", "Paslanmaz cerrahi çelik materyal.", "Tüm standart angldruvalar ile uyumlu."],
-                gorsel: "Frez Kiti Görseli"
-            },
-            "sterilizasyon": {
-                kategori: "Hijyen ve Sterilizasyon",
-                baslik: "Sterilizasyon Rulosu",
-                aciklama: "Klinik içi sterilizasyon işlemlerinde maksimum güvenlik ve bariyer koruması sağlayan indikatörlü (renk değiştiren) premium rulolar.",
-                ozellikler: ["Buhar ve Otoklav uyumlu indikatörler.", "Yırtılmaya dayanıklı ekstra kalın yapı.", "Farklı milimetre genişlik seçenekleri."],
-                gorsel: "Sterilizasyon Rulosu Görseli"
-            },
-            "onluk": {
-                kategori: "Klinik Tekstili",
-                baslik: "Profesyonel Klinik Önlüğü",
-                aciklama: "Leke tutmayan, hava alan ve hekimlerin gün boyu rahatça çalışabilmesi için özel olarak tasarlanmış klinik çalışma önlükleri.",
-                ozellikler: ["Leke ve sıvı itici nano teknoloji kumaş.", "Terletmeyen özel pamuk karışımı.", "Modern, şık ve lüks kesim."],
-                gorsel: "Önlük Görseli"
-            }
-        };
-
-        // URL'den hangi ürünün tıklandığını bulalım (Örn: ?id=implant)
+        
+        // --- URL'DEN ÜRÜNÜ BUL VE SAYFAYI OLUŞTUR ---
         const urlParams = new URLSearchParams(window.location.search);
         const urunId = urlParams.get('id');
-
-        // İlgili ürünü veritabanından çekelim
         const secilenUrun = urunVerileri[urunId];
 
         if(secilenUrun) {
-            // Eğer veritabanımızda detayı yazılmış bir ürünse
             document.getElementById('product-title').innerText = secilenUrun.baslik;
             document.getElementById('product-category').innerText = secilenUrun.kategori;
             document.getElementById('product-desc').innerText = secilenUrun.aciklama;
-            document.getElementById('product-img').innerText = secilenUrun.gorsel;
             
+            // Çoklu Görsel (Galeri) Sistemi
+            const mainImg = document.getElementById('main-product-img');
+            const thumbContainer = document.getElementById('thumbnail-gallery');
+            thumbContainer.innerHTML = ""; 
+            
+            if (secilenUrun.gorseller && secilenUrun.gorseller.length > 0) {
+                // İlk görseli ana görsel yap
+                mainImg.src = secilenUrun.gorseller[0];
+                mainImg.alt = secilenUrun.baslik;
+
+                // Birden fazla görsel varsa küçük resimleri (thumbnail) oluştur
+                if (secilenUrun.gorseller.length > 1) {
+                    secilenUrun.gorseller.forEach((gorselUrl, index) => {
+                        const thumb = document.createElement('img');
+                        thumb.src = gorselUrl;
+                        if(index === 0) thumb.classList.add('active-thumb');
+                        
+                        // Tıklama olayı
+                        thumb.addEventListener('click', function() {
+                            mainImg.src = gorselUrl;
+                            document.querySelectorAll('.thumbnail-gallery img').forEach(img => img.classList.remove('active-thumb'));
+                            this.classList.add('active-thumb');
+                        });
+                        
+                        thumbContainer.appendChild(thumb);
+                    });
+                }
+            }
+            
+            // Özellikleri listele
             const specsContainer = document.getElementById('product-specs');
+            specsContainer.innerHTML = ""; 
             secilenUrun.ozellikler.forEach(ozellik => {
                 const li = document.createElement('li');
                 li.innerText = ozellik;
                 specsContainer.appendChild(li);
             });
+            
             document.title = secilenUrun.baslik + " | Çınar Diş Deposu";
-            
-        } else if (urunId) {
-            // VERİTABANINDA EKSİK OLAN YENİ EKLENMİŞ 13 ÜRÜN İÇİN OTOMATİK DOLDURMA
-            document.getElementById('product-title').innerText = "Premium Dental Ürün (" + urunId + ")";
-            document.getElementById('product-category').innerText = "Yeni Ürün";
-            document.getElementById('product-desc').innerText = "Bu ürünümüz hakkında teknik detaylar ve açıklamalar kısa süre içerisinde eklenecektir. Fiyat ve stok bilgisi için lütfen aşağıdaki form üzerinden bizimle iletişime geçin.";
-            
-            const specsContainer = document.getElementById('product-specs');
-            specsContainer.innerHTML = "<li>Uluslararası standartlarda üretim.</li><li>Klinik dayanıklılık testlerinden geçmiş premium materyal.</li>";
         }
-        
     </script>
     <script src="script.js"></script>
 </body>

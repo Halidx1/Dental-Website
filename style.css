@@ -248,6 +248,15 @@ a { text-decoration: none; transition: 0.3s ease; }
 .carousel-btn:hover { background-color: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 .prev-btn { left: 0; } .next-btn { right: 0; }
 
+/* --- OTOMATİK ÜRÜN LİSTESİ IZGARASI --- */
+.products-grid {
+    display: grid;
+    /* Ekran genişliğine göre yan yana 3 veya 4 kart dizer, daralınca alta atar */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
 /* --- MARKALAR YATAY CAROUSEL (MİKRO ATLAMASI GİDERİLMİŞ NİHAİ KOD) --- */
 .brands-section { 
     padding: 50px 0; 
@@ -390,3 +399,91 @@ a { text-decoration: none; transition: 0.3s ease; }
 }
 @media (max-width: 1024px) { .announcements-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .announcements-grid { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   ÜRÜN DETAY SAYFASI (PREMIUM GALERİ VE BİLGİ ALANI)
+   ========================================================================== */
+.product-detail-section { padding: 80px 0; background-color: #FAFAFA; }
+
+.product-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 50px;
+    align-items: start;
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* --- SOL SÜTUN (GALERİ STİLLERİ) --- */
+.product-gallery-wrapper { display: flex; flex-direction: column; gap: 15px; }
+
+.product-image-box {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; /* Görsellerin dik durması için bir tavan yüksekliği */
+}
+
+.product-image-box img { max-width: 100%; max-height: 400px; object-fit: contain; }
+
+.thumbnail-gallery { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+.thumbnail-gallery img {
+    width: 75px; height: 75px;
+    object-fit: contain;
+    border: 2px solid transparent; 
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fdfdfd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    opacity: 0.6; 
+    transition: all 0.3s ease;
+}
+
+.thumbnail-gallery img:hover { opacity: 1; transform: translateY(-2px); }
+.thumbnail-gallery img.active-thumb { opacity: 1; border-color: var(--color-primary); }
+
+/* --- SAĞ SÜTUN (BİLGİ STİLLERİ) --- */
+.product-info-box { display: flex; flex-direction: column; align-items: flex-start; }
+
+.category-badge {
+    display: inline-block; padding: 5px 12px;
+    background-color: #F5F1EA; color: var(--color-primary);
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+    border-radius: 4px; margin-bottom: 15px;
+}
+
+.product-info-box h1 { font-size: 2.2rem; color: var(--color-dark); margin-bottom: 20px; }
+.product-info-box .description { font-size: 1.05rem; line-height: 1.6; color: #555; margin-bottom: 30px; }
+
+.specs-wrapper {
+    background-color: #f9f9f9; padding: 20px;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 4px 4px 0; margin-bottom: 35px; width: 100%;
+}
+
+.specs-wrapper h3 { font-size: 1.1rem; margin-bottom: 15px; color: #333; }
+
+#product-specs { list-style: none; margin: 0; padding: 0; }
+#product-specs li {
+    margin-bottom: 10px; font-size: 0.95rem; color: #555;
+    padding-left: 15px; position: relative;
+}
+
+#product-specs li::before {
+    content: "•"; color: var(--color-primary);
+    font-weight: bold; position: absolute; left: 0;
+}
+
+/* --- ÜRÜN DETAY MOBİL UYUM --- */
+@media (max-width: 768px) {
+    .product-container { grid-template-columns: 1fr; padding: 20px; gap: 30px; }
+    .product-info-box h1 { font-size: 1.8rem; }
+    .product-image-box { min-height: 250px; }
+}
