@@ -174,3 +174,24 @@ a { text-decoration: none; transition: 0.3s ease; }
     .about-section, .products-section, .contact-section { padding: 50px 0; }
     .detail-image { min-height: 250px; }
 }
+
+/* --- YAN YANA MİNİ HARİTA STİLLERİ --- */
+.map-wrapper-inline {
+    width: 100%;
+    margin-top: 30px; /* Adres kutusu ile harita arasına boşluk */
+    border: 1px solid #eee;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.map-wrapper-inline iframe {
+    display: block;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .map-wrapper-inline iframe {
+        height: 200px; /* Mobilde çok fazla yer kaplamaması için boyu biraz kısalır */
+    }
+}
