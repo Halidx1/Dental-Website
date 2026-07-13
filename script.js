@@ -494,7 +494,7 @@ function footerKategorileriOlustur() {
         kategoriler.add(urunDetayi.kategori);
     }
 
-    let footerHTML = "";
+    let footerHTML = `<li><a href="urunler.html">Tüm Ürünler</a></li>`;
 
     // Her bir kategori için footer linkini oluşturuyoruz
     kategoriler.forEach(kategoriAdi => {
