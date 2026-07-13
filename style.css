@@ -274,10 +274,21 @@ a { text-decoration: none; transition: 0.3s ease; }
 .footer-layout { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px; }
 .footer-brand h3 { color: var(--color-primary); font-size: 1.8rem; margin-bottom: 15px; }
 .footer-links-box h4, .footer-contact-box h4 { color: #fff; margin-bottom: 25px; font-size: 1.2rem; }
-.footer-links-box ul { list-style: none; }
-.footer-links-box ul li { margin-bottom: 12px; }
-.footer-links-box ul li a { color: #ccc; transition: 0.3s; }
-.footer-links-box ul li a:hover { color: var(--color-primary); padding-left: 5px; }
+.footer-links-box ul,
+.footer-contact-box ul { 
+    list-style: none !important; 
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+.footer-links-box ul li,
+.footer-contact-box ul li { 
+    list-style: none !important;
+    margin-bottom: 12px; 
+}
+.footer-links-box ul li a,
+.footer-contact-box ul li a { color: #ccc; transition: 0.3s; }
+.footer-links-box ul li a:hover,
+.footer-contact-box ul li a:hover { color: var(--color-primary); padding-left: 5px; }
 .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; color: #888; }
 
 /* ==========================================================================
@@ -314,6 +325,19 @@ a { text-decoration: none; transition: 0.3s ease; }
 /* Navbar içindeki hiçbir ul veya li etiketinde KESİNLİKLE yuvarlak çıkmasın */
 .navbar ul, 
 .navbar li, 
+.nav-links ul,
+.nav-links li,
+.dropdown-menu, 
+.dropdown-menu li, 
+.dropdown-submenu,
+.dropdown-submenu li,
+.dropdown-menu-side, 
+.dropdown-menu-side li {
+    list-style: none !important;
+    list-style-type: none !important;
+}
+
+/* Tüm alt menü linkleri için STANDART VE EŞİT ÇERÇEVE */
 .nav-links ul,
 .nav-links li,
 .dropdown-menu, 
