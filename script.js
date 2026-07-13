@@ -165,6 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
         urunleriListele();
     }
 
+    if (typeof footerKategorileriOlustur === 'function') {
+        footerKategorileriOlustur();
+    }
+
 
     // --- MOBİL MENÜ (HAMBURGER) İŞLEVİ ---
     const hamburger = document.getElementById('hamburger');
@@ -174,13 +178,44 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
-        const links = navLinks.querySelectorAll('a:not(.dropdown > a)');
+        
+        // Sadece normal linklere tıklandığında (dropdown OLMAYANLARA) menüyü kapat
+        const links = navLinks.querySelectorAll('a:not(.dropdown > a, .dropdown-submenu > a)');
         links.forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
             });
         });
     }
+
+    // --- MOBİLDE AÇILIR MENÜ (DROPDOWN) DOKUNMA KONTROLÜ ---
+    const dropdowns = document.querySelectorAll('.dropdown, .dropdown-submenu');
+    
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a');
+        
+        link.addEventListener('click', (e) => {
+            // Sadece mobil ekranda (768px ve altı) çalışır
+            if (window.innerWidth <= 768) {
+                
+                // Menü kapalıysa aç
+                if (!dropdown.classList.contains('active')) {
+                    e.preventDefault(); // Sayfa atlamasını/yenilenmesini KESİNLİKLE durdurur
+                    
+                    // Sadece aynı seviyedeki diğer açık menüleri kapat (Örn: Ürünler açıksa Hakkımızda'yı kapat)
+                    // Ancak Ürünler içindeyken bir kategoriye basarsan Ürünler'i KAPATMA
+                    dropdowns.forEach(d => { 
+                        if (d !== dropdown && d.parentElement === dropdown.parentElement) {
+                             d.classList.remove('active'); 
+                        }
+                    });
+                    
+                    dropdown.classList.add('active'); // Tıklanan menüyü veya alt menüyü aç
+                }
+                // Menü zaten açıksa 2. tıklamada (eğer bir sayfaya gitmesi gerekiyorsa) linke gitmesine izin verir
+            }
+        });
+    });
 
     // --- CAROUSEL (ÜRÜNLER) İŞLEVİ ---
     const carousels = document.querySelectorAll('.carousel-container');
@@ -372,38 +407,35 @@ function anaSayfaCarouselOlustur() {
 
 function navigasyonUrunleriOlustur() {
     const navContainer = document.getElementById('dynamic-nav-products');
-    if (!navContainer) return; // Eğer sayfada bu id'li menü yoksa işlem yapma
+    if (!navContainer) return; 
 
-    // 1. Ürünleri Kategorilerine Göre Grupla
     const kategoriler = {};
     for (const [urunId, urunDetayi] of Object.entries(urunVerileri)) {
         const katAdi = urunDetayi.kategori;
-        if (!kategoriler[katAdi]) {
-            kategoriler[katAdi] = [];
-        }
+        if (!kategoriler[katAdi]) { kategoriler[katAdi] = []; }
         kategoriler[katAdi].push({ id: urunId, ...urunDetayi });
     }
 
-    // 2. Menünün En Üstüne "Tüm Ürünler" Linkini Ekle
-    let navHTML = `<li><a href="urunler.html" style="font-weight: bold; border-bottom: 1px solid #eee;">Tüm Ürünler</a></li>`;
+    // YENİ: Inline style silindi, "all-products-link" sınıfı eklendi
+    let navHTML = `<li><a href="urunler.html" class="all-products-link">Tüm Ürünler</a></li>`;
 
-    // 3. Her Kategori ve Altındaki Ürünler İçin Döngü Kur
     for (const [kategoriAdi, urunlerListesi] of Object.entries(kategoriler)) {
         
-        // Türkçe karakterleri temizleyerek güvenli bir link hash'i (#) oluşturur
-        // Örn: "Ölçü Maddeleri" -> "olcu-maddeleri" olur ve sayfada o alana kaydırır
         const katSlug = kategoriAdi.toLowerCase()
             .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
             .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
             .replace(/[^a-z0-9]/g, '-');
 
+        // YENİ: Sadece iskelet bırakıldı
         navHTML += `
             <li class="dropdown-submenu">
-                <a href="urunler.html#${katSlug}">${kategoriAdi} <span>▸</span></a>
+                <a href="urunler.html#${katSlug}">
+                    ${kategoriAdi} 
+                    <span class="nav-arrow">▸</span>
+                </a>
                 <ul class="dropdown-menu-side">
         `;
 
-        // Kategorinin altındaki ürünleri alt menüye diz
         urunlerListesi.forEach(urun => {
             navHTML += `<li><a href="urun-detay.html?id=${urun.id}">${urun.baslik}</a></li>`;
         });
@@ -414,7 +446,6 @@ function navigasyonUrunleriOlustur() {
         `;
     }
 
-    // Oluşturulan yapıyı HTML içerisine enjekte et
     navContainer.innerHTML = navHTML;
 }
 
@@ -447,6 +478,36 @@ function dinamikMarkalariOlustur() {
         <div class="brands-slide">${tekVagon}</div>
         <div class="brands-slide">${tekVagon}</div>
     `;
+}
+
+// ==========================================================================
+// DİNAMİK FOOTER KATEGORİLERİ OLUŞTURUCU
+// ==========================================================================
+
+function footerKategorileriOlustur() {
+    const footerContainer = document.getElementById('dynamic-footer-categories');
+    if (!footerContainer) return; // Sayfada footer kategori alanı yoksa çalışma
+
+    // Ürün verilerinden sadece benzersiz (tekrarsız) kategori isimlerini topluyoruz
+    const kategoriler = new Set();
+    for (const urunDetayi of Object.values(urunVerileri)) {
+        kategoriler.add(urunDetayi.kategori);
+    }
+
+    let footerHTML = "";
+
+    // Her bir kategori için footer linkini oluşturuyoruz
+    kategoriler.forEach(kategoriAdi => {
+        // Linkin doğru yere gitmesi için Türkçe karakterleri çevirip slug (url) yapıyoruz
+        const katSlug = kategoriAdi.toLowerCase()
+            .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
+            .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
+            .replace(/[^a-z0-9]/g, '-');
+
+        footerHTML += `<li><a href="urunler.html#${katSlug}">${kategoriAdi}</a></li>`;
+    });
+
+    footerContainer.innerHTML = footerHTML;
 }
 
 
