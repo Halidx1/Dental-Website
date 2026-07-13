@@ -377,3 +377,43 @@ a { text-decoration: none; transition: 0.3s ease; }
         padding-left: 30px !important;
     }
 }
+
+/* ==========================================================================
+   SABİT PREMİUM WHATSAPP BUTONU STİLLERİ
+   ========================================================================== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #25D366; /* Orijinal WhatsApp Yeşili */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 9999; /* Sayfadaki her şeyin en üstünde kalmasını sağlar */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Akıcı lüks büyüme efekti */
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1) rotate(5deg);
+    background-color: #20ba5a;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+@media (max-width: 768px) {
+    .whatsapp-float {
+        bottom: 20px; /* Telefon ekranlarında çok az daha aşağı çektik */
+        right: 20px;  /* Başparmakla rahat basılması için ideal konum */
+        width: 54px;
+        height: 54px;
+    }
+    
+    .whatsapp-float svg {
+        width: 26px;
+        height: 26px;
+    }
+}
