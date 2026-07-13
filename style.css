@@ -261,17 +261,53 @@ ul, li { list-style: none; } /* Global list sıfırlama (Tekrarlayan kodları ö
         justify-content: center;
         align-items: center;
     }
+    /* ==========================================================================
+       HERO / BAŞLIK ALANI MOBİL MERKEZLEME VE ZARAFET OPTİMİZASYONU
+       ========================================================================== */
     
-    .hero-section .hero-content {
-        /* Masaüstünden veya HTML'den gelen üstten itme kuvvetini sıfırlar */
-        padding-top: 0 !important; 
-        margin-top: 0 !important;
-        text-align: center;
+    /* 1. Kapsayıcıyı esnekleştirir ve içindekileri kusursuzca merkeze kilitler (Taşmayı önler) */
+    .hero-section {
+        height: auto !important; 
+        min-height: 25vh !important;
+        padding: 50px 20px !important; 
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
-    .hero-section .hero-content h1 {font-size: 2rem !important; line-height: 1.3 !important; margin-bottom: 12px !important;}
+    /* 2. Sol üste yaslanmayı iptal eder, yazılara sağdan soldan nefes aldırır */
+    .hero-content {
+        padding: 0 15px !important; 
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+        text-align: center !important; 
+        width: 100%;
+    }
+    
+    /* 3. Hem ana sayfa hem alt sayfa başlıklarının asil orantısı */
+    .hero-content h1 { 
+        font-size: 1.75rem !important; 
+        line-height: 1.35 !important; 
+        letter-spacing: 0.5px !important; 
+        margin-bottom: 15px !important; 
+    }
+    
+    /* 4. Alt açıklama yazısı */
+    .hero-content p { 
+        font-size: 0.95rem !important; 
+        line-height: 1.6 !important;
+        padding: 0 10px !important; 
+        margin-bottom: 0 !important;
+    }
 
-    .hero-section .hero-content p { font-size: 0.95rem !important; line-height: 1.5 !important; margin-bottom: 0 !important;}
+    /* 5. Buton orantısı (Değişen yazı boyutlarına uygun küçültüldü) */
+    .hero-content .btn-primary {
+        padding: 12px 25px !important; 
+        font-size: 0.85rem !important;
+        margin-top: 25px !important;
+        letter-spacing: 1px !important;
+    }
     .products-section .section-title h2 { font-size: 1.6rem; margin-bottom: 20px; }
     
     /* Carousel (Peek-a-boo) */
