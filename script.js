@@ -515,10 +515,7 @@ function footerKategorileriOlustur() {
 }
 
 // ==========================================================================
-// NETLIFY AJAX FORM GÖNDERİMİ
-// ==========================================================================
-// ==========================================================================
-// NETLIFY AJAX FORM GÖNDERİMİ VE TÜRKÇE DOĞRULAMA (VALIDATION)
+// NETLIFY AJAX FORM GÖNDERİMİ (DOSYA DESTEKLİ VE TÜRKÇE VALIDATION)
 // ==========================================================================
 function netlifyFormGonder() {
     const contactForm = document.getElementById('contactForm');
@@ -527,36 +524,56 @@ function netlifyFormGonder() {
 
     if (contactForm) {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const requiredInputs = contactForm.querySelectorAll('[required]');
+        const fileInput = document.getElementById('dosya-yukle');
 
-        // 1. BUTONUN GÖRSEL DURUMUNU KONTROL ETME (PASİF/AKTİF)
+        // 1. BUTONUN GÖRSEL DURUMUNU KONTROL ETME
         const checkButtonState = () => {
-            if (contactForm.checkValidity()) {
-                // Form tamamen doğruysa butonu canlandır
+            let isFileValid = true;
+            
+            // Dosya boyutu kontrolü (5MB = 5 * 1024 * 1024 = 5242880 byte)
+            if (fileInput && fileInput.files.length > 0) {
+                const fileSize = fileInput.files[0].size;
+                if (fileSize > 5242880) {
+                    isFileValid = false;
+                    fileInput.setCustomValidity('Yüklediğiniz görsel çok büyük. Lütfen 5MB altı bir dosya seçiniz.');
+                } else {
+                    fileInput.setCustomValidity(''); // Boyut uygunsa hatayı temizle
+                }
+            } else if (fileInput) {
+                fileInput.setCustomValidity(''); // Dosya eklenmediyse hata yok (çünkü isteğe bağlı)
+            }
+
+            // Hem form kuralları doğruysa hem de dosya boyutu uygunsa butonu aç
+            if (contactForm.checkValidity() && isFileValid) {
                 submitBtn.style.opacity = '1';
                 submitBtn.style.cursor = 'pointer';
             } else {
-                // Formda eksik varsa butonu soluk ve pasif göster
                 submitBtn.style.opacity = '0.5';
                 submitBtn.style.cursor = 'not-allowed';
             }
         };
 
-        // Sayfa yüklendiğinde butonun durumunu ilk kez kontrol et
         checkButtonState();
 
-        // 2. HTML5 UYARI BALONCUKLARINI TÜRKÇELEŞTİRME
-        requiredInputs.forEach(input => {
-            // Kullanıcı inputa her veri girdiğinde buton durumunu güncelle ve hatayı sıfırla
+        // 2. TÜM INPUTLARI VE DOSYA ALANINI DİNLE
+        const allInputs = contactForm.querySelectorAll('input, textarea, select');
+        allInputs.forEach(input => {
+            
             input.addEventListener('input', function() {
-                this.setCustomValidity(''); // Önceki hata mesajını temizle
-                checkButtonState(); // Form geçerliyse butonu aktif yap
+                if (this.type !== 'file') {
+                    this.setCustomValidity(''); // Yazı yazıldıkça standart hataları sıfırla
+                }
+                checkButtonState();
+            });
+            
+            // Dosya seçildiğinde değişimi algıla
+            input.addEventListener('change', function() {
+                checkButtonState();
             });
 
-            // Gönder'e basıldığında veya input geçeriz olduğunda (invalid tetiklendiğinde)
+            // Yanlış bir şey varsa Türkçe uyar
             input.addEventListener('invalid', function(e) {
                 if (this.validity.valueMissing) {
-                    // Alan boş bırakıldıysa
                     if(this.type === 'checkbox') {
                         this.setCustomValidity('Lütfen formu göndermeden önce KVKK metnini onaylayınız.');
                     } else {
@@ -564,51 +581,47 @@ function netlifyFormGonder() {
                     }
                 } else if ((this.validity.typeMismatch || this.validity.patternMismatch) && this.type === 'email') {
                     this.setCustomValidity('Lütfen geçerli bir e-posta adresi giriniz (Örn: isim@alanadi.com).');
-                } else {
-                    // Diğer genel hatalar için
+                } else if (this.type !== 'file') {
                     this.setCustomValidity('Lütfen geçerli bir değer giriniz.');
                 }
+                // Dosya (file) hatası, checkButtonState içinde özel olarak atanıyor.
             });
         });
 
         // 3. AJAX (SAYFA YENİLENMEDEN) GÖNDERİM İŞLEMİ
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Sayfa yenilenmesini engelle
+            e.preventDefault(); 
 
-            // Butonu yükleniyor durumuna getir
             const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = "Gönderiliyor...";
             submitBtn.style.opacity = '0.7';
             submitBtn.style.cursor = 'wait';
-            submitBtn.disabled = true; // Gönderim sırasında art arda tıklanmaması için tam kilit
+            submitBtn.disabled = true; 
 
-            // Form verilerini Netlify'ın anlayacağı formatta hazırla
+            // Form verilerini al (İçinde dosyayı da otomatik barındırır)
             const formData = new FormData(contactForm);
             
+            // ÖNEMLİ: Dosya gönderiminde 'Content-Type' KESİNLİKLE belirtilmez!
+            // Tarayıcı bunu Multipart Form Boundary olarak otomatik oluşturur.
             fetch("/", {
                 method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
+                body: formData
             })
             .then(response => {
                 if (response.ok) {
-                    // Başarılı gönderim
-                    contactForm.style.display = 'none'; // Formu gizle
+                    contactForm.style.display = 'none'; 
                     if(errorDiv) errorDiv.style.display = 'none';
-                    if(successDiv) successDiv.style.display = 'block'; // Başarı mesajını göster
-                    
-                    // Sayfayı başarı mesajına doğru hafifçe kaydır
+                    if(successDiv) successDiv.style.display = 'block'; 
                     successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     throw new Error("Sunucu hatası");
                 }
             })
             .catch(error => {
-                // Hata oluştuğunda
                 if(errorDiv) errorDiv.style.display = 'block';
                 submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
-                checkButtonState(); // Buton görünümünü eski haline getir
+                checkButtonState(); 
             });
         });
     }

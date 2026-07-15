@@ -92,7 +92,8 @@
                     <form name="iletisim" method="POST" data-netlify="true" class="premium-form" id="contactForm">
                     
                         <input type="hidden" name="form-name" value="iletisim" />
-                        <input type="email" name="email" placeholder="E-posta Adresiniz" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">                        <input type="text" name="konu" placeholder="Konu" required>
+                        <input type="email" name="email" placeholder="E-posta Adresiniz" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">     
+                        <input type="text" name="konu" placeholder="Konu" required>
 
                         <input type="text" name="klinik" placeholder="Klinik veya Kurum Adı">
                         <textarea name="mesaj" rows="8" placeholder="Mesajınızı veya taleplerinizi detaylıca yazabilirsiniz..." required></textarea>
@@ -102,6 +103,11 @@
                                 İletişim formu aracılığıyla paylaştığım kişisel verilerimin <a href="gizlilik-politikasi.html" target="_blank" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">KVKK Aydınlatma Metni ve Gizlilik Politikası</a> kapsamında işlenmesini okudum ve kabul ediyorum.
                             </label>
                         </div>
+                        <div style="text-align: left;">
+                            <label for="dosya-yukle" style="font-size: 0.9rem; color: #555; display: block; margin-bottom: 5px;">Görsel Ekle (İsteğe Bağlı - Maks: 5MB)</label>
+                            <input type="file" name="dosya" id="dosya-yukle" accept="image/*" style="padding: 10px; border: 1px dashed #ccc; cursor: pointer; width: 100%;">
+                        </div>
+
                         <button type="submit" class="btn-primary">Mesajı Gönder</button>
                     </form>
                 </div>
