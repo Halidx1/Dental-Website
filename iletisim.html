@@ -92,7 +92,8 @@
                     <form name="iletisim" method="POST" data-netlify="true" class="premium-form" id="contactForm">
                     
                         <input type="hidden" name="form-name" value="iletisim" />
-                        <input type="email" name="email" placeholder="E-posta Adresiniz" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">                        <input type="text" name="konu" placeholder="Konu" required>
+                        <input type="email" name="email" placeholder="E-posta Adresiniz" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">     
+                        <input type="text" name="konu" placeholder="Konu" required>
 
                         <input type="text" name="klinik" placeholder="Klinik veya Kurum Adı">
                         <textarea name="mesaj" rows="8" placeholder="Mesajınızı veya taleplerinizi detaylıca yazabilirsiniz..." required></textarea>
@@ -101,6 +102,16 @@
                             <label for="kvkk-onay" style="line-height: 1.5; cursor: pointer;">
                                 İletişim formu aracılığıyla paylaştığım kişisel verilerimin <a href="gizlilik-politikasi.html" target="_blank" style="color: var(--color-primary); text-decoration: underline; font-weight: 600;">KVKK Aydınlatma Metni ve Gizlilik Politikası</a> kapsamında işlenmesini okudum ve kabul ediyorum.
                             </label>
+                        </div>
+                        <div style="text-align: left; margin-bottom: 15px;">
+                            <label style="font-size: 0.9rem; color: #555; display: block; margin-bottom: 8px;">Görsel Ekle (İsteğe Bağlı - En fazla 3 görsel, Toplam Maks. 7MB)</label>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+                                <input type="file" name="gorsel_1" class="dosya-yukle" accept="image/*" style="padding: 10px; border: 1px dashed #ccc; cursor: pointer; width: 100%; font-size: 0.8rem; background: #fff;">
+                                <input type="file" name="gorsel_2" class="dosya-yukle" accept="image/*" style="padding: 10px; border: 1px dashed #ccc; cursor: pointer; width: 100%; font-size: 0.8rem; background: #fff;">
+                                <input type="file" name="gorsel_3" class="dosya-yukle" accept="image/*" style="padding: 10px; border: 1px dashed #ccc; cursor: pointer; width: 100%; font-size: 0.8rem; background: #fff;">
+                            </div>
+                            <span id="dosya-hata-mesaji" style="color: #d93025; font-size: 0.8rem; display: none; margin-top: 5px;">Toplam dosya boyutu 7MB'ı geçemez!</span>
                         </div>
                         <button type="submit" class="btn-primary">Mesajı Gönder</button>
                     </form>

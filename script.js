@@ -515,10 +515,7 @@ function footerKategorileriOlustur() {
 }
 
 // ==========================================================================
-// NETLIFY AJAX FORM GÖNDERİMİ
-// ==========================================================================
-// ==========================================================================
-// NETLIFY AJAX FORM GÖNDERİMİ VE TÜRKÇE DOĞRULAMA (VALIDATION)
+// NETLIFY AJAX FORM GÖNDERİMİ (AKILLI SIKIŞTIRMA VE ÇOKLU DOSYA)
 // ==========================================================================
 function netlifyFormGonder() {
     const contactForm = document.getElementById('contactForm');
@@ -527,89 +524,166 @@ function netlifyFormGonder() {
 
     if (contactForm) {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const requiredInputs = contactForm.querySelectorAll('[required]');
+        const fileInputs = contactForm.querySelectorAll('.dosya-yukle');
+        const MAX_SIZE = 7340032; // 7 MB Sınırı (Byte cinsinden)
 
-        // 1. BUTONUN GÖRSEL DURUMUNU KONTROL ETME (PASİF/AKTİF)
+        // GÖRSEL SIKIŞTIRMA FONKSİYONU (Sadece gerekirse çalışır)
+        const compressImage = async (file, { quality = 0.7, maxWidth = 1200 }) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = event => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        canvas.toBlob((blob) => {
+                            if(blob) {
+                                resolve(new File([blob], file.name.replace(/\.[^/.]+$/, ".jpg"), { type: 'image/jpeg' }));
+                            } else {
+                                reject(new Error('Sıkıştırma başarısız'));
+                            }
+                        }, 'image/jpeg', quality);
+                    };
+                    img.onerror = error => reject(error);
+                };
+                reader.onerror = error => reject(error);
+            });
+        };
+
+        // BUTON KONTROLÜ (Artık anlık boyut kısıtlaması yok, doğrulamaya bakıyoruz)
         const checkButtonState = () => {
             if (contactForm.checkValidity()) {
-                // Form tamamen doğruysa butonu canlandır
                 submitBtn.style.opacity = '1';
                 submitBtn.style.cursor = 'pointer';
             } else {
-                // Formda eksik varsa butonu soluk ve pasif göster
                 submitBtn.style.opacity = '0.5';
                 submitBtn.style.cursor = 'not-allowed';
             }
         };
 
-        // Sayfa yüklendiğinde butonun durumunu ilk kez kontrol et
         checkButtonState();
 
-        // 2. HTML5 UYARI BALONCUKLARINI TÜRKÇELEŞTİRME
-        requiredInputs.forEach(input => {
-            // Kullanıcı inputa her veri girdiğinde buton durumunu güncelle ve hatayı sıfırla
+        // TÜM INPUTLARI DİNLE
+        const allInputs = contactForm.querySelectorAll('input, textarea, select');
+        allInputs.forEach(input => {
             input.addEventListener('input', function() {
-                this.setCustomValidity(''); // Önceki hata mesajını temizle
-                checkButtonState(); // Form geçerliyse butonu aktif yap
+                if (this.type !== 'file') this.setCustomValidity(''); 
+                checkButtonState();
             });
+            input.addEventListener('change', checkButtonState);
 
-            // Gönder'e basıldığında veya input geçeriz olduğunda (invalid tetiklendiğinde)
             input.addEventListener('invalid', function(e) {
                 if (this.validity.valueMissing) {
-                    // Alan boş bırakıldıysa
-                    if(this.type === 'checkbox') {
-                        this.setCustomValidity('Lütfen formu göndermeden önce KVKK metnini onaylayınız.');
-                    } else {
-                        this.setCustomValidity('Lütfen bu alanı eksiksiz doldurunuz.');
-                    }
+                    this.type === 'checkbox' 
+                        ? this.setCustomValidity('Lütfen formu göndermeden önce KVKK metnini onaylayınız.')
+                        : this.setCustomValidity('Lütfen bu alanı eksiksiz doldurunuz.');
                 } else if ((this.validity.typeMismatch || this.validity.patternMismatch) && this.type === 'email') {
                     this.setCustomValidity('Lütfen geçerli bir e-posta adresi giriniz (Örn: isim@alanadi.com).');
-                } else {
-                    // Diğer genel hatalar için
+                } else if (this.type !== 'file') {
                     this.setCustomValidity('Lütfen geçerli bir değer giriniz.');
                 }
             });
         });
 
-        // 3. AJAX (SAYFA YENİLENMEDEN) GÖNDERİM İŞLEMİ
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Sayfa yenilenmesini engelle
+        // AJAX GÖNDERİM İŞLEMİ (Akıllı Karar Mekanizması)
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); 
 
-            // Butonu yükleniyor durumuna getir
             const originalBtnText = submitBtn.innerText;
-            submitBtn.innerText = "Gönderiliyor...";
             submitBtn.style.opacity = '0.7';
             submitBtn.style.cursor = 'wait';
-            submitBtn.disabled = true; // Gönderim sırasında art arda tıklanmaması için tam kilit
+            submitBtn.disabled = true; 
 
-            // Form verilerini Netlify'ın anlayacağı formatta hazırla
-            const formData = new FormData(contactForm);
-            
-            fetch("/", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(response => {
+            try {
+                const formData = new FormData(contactForm);
+                let totalOriginalSize = 0;
+
+                // 1. Orijinal toplam boyutu hesapla
+                fileInputs.forEach(input => {
+                    if (input.files.length > 0) {
+                        totalOriginalSize += input.files[0].size;
+                    }
+                });
+
+                // 2. KARAR AŞAMASI: Sıkıştırmaya gerek var mı?
+                if (totalOriginalSize <= MAX_SIZE) {
+                    // HIZLI YOL: Toplam boyut 7 MB altıysa direkt gönder.
+                    submitBtn.innerText = "Gönderiliyor...";
+                } else {
+                    // KURTARICI YOL: Boyut 7 MB üstü, resimleri sıkıştır.
+                    submitBtn.innerText = "Görseller İşleniyor & Gönderiliyor...";
+                    let totalCompressedSize = 0;
+
+                    for (let i = 0; i < fileInputs.length; i++) {
+                        const input = fileInputs[i];
+                        const inputName = input.getAttribute('name');
+                        
+                        formData.delete(inputName); // Eski ağır dosyayı formdan çıkar
+
+                        if (input.files.length > 0) {
+                            const originalFile = input.files[0];
+                            
+                            // Sadece resim formatındaysa sıkıştır
+                            if (originalFile.type.startsWith('image/')) {
+                                const compressedFile = await compressImage(originalFile, { quality: 0.7, maxWidth: 1200 });
+                                formData.append(inputName, compressedFile);
+                                totalCompressedSize += compressedFile.size;
+                            } else {
+                                // Resim değilse (PDF vs.) orijinali ekle
+                                formData.append(inputName, originalFile);
+                                totalCompressedSize += originalFile.size;
+                            }
+                        }
+                    }
+
+                    // Sıkıştırma sonrası son güvenlik kontrolü
+                    if (totalCompressedSize > MAX_SIZE) {
+                        throw new Error("OVERSIZE"); // Sıkıştırılamayan ağır dosyalar (örn: 10MB PDF)
+                    }
+                }
+                
+                // 3. Verileri Netlify'a gönder
+                const response = await fetch("/", {
+                    method: "POST",
+                    body: formData
+                });
+
                 if (response.ok) {
-                    // Başarılı gönderim
-                    contactForm.style.display = 'none'; // Formu gizle
+                    contactForm.style.display = 'none'; 
                     if(errorDiv) errorDiv.style.display = 'none';
-                    if(successDiv) successDiv.style.display = 'block'; // Başarı mesajını göster
-                    
-                    // Sayfayı başarı mesajına doğru hafifçe kaydır
+                    if(successDiv) successDiv.style.display = 'block'; 
                     successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
-                    throw new Error("Sunucu hatası");
+                    throw new Error("SUNUCU_HATASI");
                 }
-            })
-            .catch(error => {
-                // Hata oluştuğunda
-                if(errorDiv) errorDiv.style.display = 'block';
+
+            } catch (error) {
+                console.error("Gönderim Hatası:", error);
+                
+                if (error.message === "OVERSIZE") {
+                    alert("Yüklediğiniz dosyalar çok büyük ve sıkıştırılamıyor (Örn: Büyük PDF dosyaları). Lütfen daha küçük dosyalar seçiniz.");
+                } else {
+                    if(errorDiv) errorDiv.style.display = 'block';
+                }
+                
                 submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
-                checkButtonState(); // Buton görünümünü eski haline getir
-            });
+                checkButtonState(); 
+            }
         });
     }
 }
