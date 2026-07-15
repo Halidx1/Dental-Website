@@ -1,0 +1,108 @@
+# =====================================================================
+# ÖNEMLİ: "repo" değerini kendi GitHub kullanıcı-adiniz/repo-adiniz
+# bilgisiyle değiştirin. Örnek: repo: mehmetcinar/cinar-dis-deposu
+# =====================================================================
+backend:
+  name: github
+  repo: Halidx1/Dental-Website
+  branch: main
+
+# Panelden yüklenen görsellerin repo içinde nereye kaydedileceği
+media_folder: "images/uploads"
+public_folder: "images/uploads"
+
+locale: "tr"
+
+collections:
+
+  # ---------------- ÜRÜNLER ----------------
+  - name: "urunler"
+    label: "Ürünler"
+    files:
+      - name: "urunler"
+        label: "Ürün Listesi"
+        file: "content/urunler.json"
+        fields:
+          - label: "Ürünler"
+            name: "urunler"
+            widget: "list"
+            summary: "{{fields.baslik}} ({{fields.kategori}})"
+            fields:
+              - { label: "Ürün ID (benzersiz, boşluksuz, örn: yeni-urun-adi)", name: "id", widget: "string" }
+              - { label: "Kategori", name: "kategori", widget: "string" }
+              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Açıklama", name: "aciklama", widget: "text" }
+              - label: "Özellikler"
+                name: "ozellikler"
+                widget: "list"
+                field: { label: "Özellik", name: "ozellik", widget: "string" }
+              - label: "Görseller"
+                name: "gorseller"
+                widget: "list"
+                field: { label: "Görsel", name: "gorsel", widget: "image" }
+
+  # ---------------- MARKALAR ----------------
+  - name: "markalar"
+    label: "Markalar"
+    files:
+      - name: "markalar"
+        label: "Marka Listesi"
+        file: "content/markalar.json"
+        fields:
+          - label: "Markalar"
+            name: "markalar"
+            widget: "list"
+            summary: "{{fields.ad}}"
+            fields:
+              - { label: "Marka Adı", name: "ad", widget: "string" }
+              - { label: "Logo", name: "logo", widget: "image" }
+              - { label: "Web Sitesi (URL)", name: "url", widget: "string" }
+
+  # ---------------- DUYURULAR ----------------
+  - name: "duyurular"
+    label: "Duyurular"
+    files:
+      - name: "duyurular"
+        label: "Duyuru Listesi"
+        file: "content/duyurular.json"
+        fields:
+          - label: "Duyurular"
+            name: "duyurular"
+            widget: "list"
+            summary: "{{fields.baslik}}"
+            fields:
+              - { label: "Duyuru ID (benzersiz, boşluksuz)", name: "id", widget: "string" }
+              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Açıklama", name: "aciklama", widget: "text" }
+              - { label: "Tarih", name: "tarih", widget: "datetime", required: false }
+
+  # ---------------- İLETİŞİM BİLGİLERİ ----------------
+  - name: "iletisim"
+    label: "İletişim Bilgileri"
+    files:
+      - name: "iletisim"
+        label: "İletişim ve Şube Bilgileri"
+        file: "content/iletisim.json"
+        fields:
+          - label: "Merkez Şube"
+            name: "merkez"
+            widget: "object"
+            fields:
+              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Adres", name: "adres", widget: "string" }
+              - { label: "Sabit Telefon", name: "tel", widget: "string" }
+              - { label: "Mobil Telefon", name: "mobil", widget: "string" }
+              - { label: "E-posta", name: "mail", widget: "string" }
+          - label: "İkinci Şube"
+            name: "sube"
+            widget: "object"
+            fields:
+              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Adres", name: "adres", widget: "string" }
+              - { label: "Sabit Telefon", name: "tel", widget: "string" }
+              - { label: "Mobil Telefon", name: "mobil", widget: "string" }
+              - { label: "E-posta", name: "mail", widget: "string" }
+          - { label: "Footer'da Görünen Kısa Adres", name: "footer_adres_kisa", widget: "string" }
+          - { label: "Footer'da Görünen Telefon", name: "footer_telefon", widget: "string" }
+          - { label: "Anasayfa Teknik Servis Telefonu", name: "cta_teknik_servis_tel", widget: "string" }
+          - { label: "WhatsApp Numarası (ülke kodu ile, boşluksuz, örn: 905315652209)", name: "whatsapp_numara", widget: "string" }

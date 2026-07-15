@@ -1,0 +1,9 @@
+{
+  "markalar": [
+    { "ad": "Vannini Dental", "logo": "images/brands/vanini.png", "url": "https://www.vanninidental.com" },
+    { "ad": "Zhermack", "logo": "images/brands/zhermack.png", "url": "https://www.zhermack.com" },
+    { "ad": "3M Espe", "logo": "images/brands/3m.png", "url": "https://www.3m.com.tr" },
+    { "ad": "Kerr Dental", "logo": "images/brands/kerr.png", "url": "https://www.kerrdental.com" },
+    { "ad": "Kulzer", "logo": "images/brands/kulzer.png", "url": "https://www.kulzer.com" }
+  ]
+}

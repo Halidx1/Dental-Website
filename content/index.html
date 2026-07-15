@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Çınar Diş Deposu | Premium Dental Çözümler</title>
+    <meta name="description" content="Çınar Diş Deposu, kliniklerinizin ihtiyaç duyduğu dental sarf malzemeleri, implant, aljinat ve klinik cihazlarda yüksek kaliteli premium ürünler sunar. Bursa ve İstanbul'dan tüm Türkiye'ye hizmet veriyoruz.">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="canonical" href="https://cinardisdeposu.com/">
+    <meta property="og:title" content="Çınar Diş Deposu | Premium Dental Çözümler">
+    <meta property="og:description" content="Kliniklerinizin ihtiyaç duyduğu premium dental malzemeler ve cihazlar. Kalite ve güvenin adresi.">
+    <meta property="og:url" content="https://cinardisdeposu.com/">
+    <meta property="og:type" content="website">
 </head>
 <body>
 
@@ -42,12 +48,77 @@
         </div>
     </nav>
 
-    <section class="announcements-section">
+    <header class="hero-slider">
+        <div class="hero-slide active" style="background-image: url('images/unit.jpeg');">
+            <div class="container hero-content">
+                <h1>Diş Hekimliğinde Premium Standartlar</h1>
+                <p>Modern kliniklerin ihtiyaç duyduğu yenilikçi ve kaliteli çözümler.</p>
+                <a href="urunler.html" class="btn-primary">Ürünleri Keşfedin</a>
+            </div>
+        </div>
+        
+        <div class="hero-slide" style="background-image: url('images/temp.jpg');">
+            <div class="container hero-content">
+                <h1>Dünya Standartlarında Markalar</h1>
+                <p>Sektörün öncü markalarıyla kliniğinize değer katın.</p>
+                <a href="iletisim.html" class="btn-primary">İş Birliği Yapın</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="about-section">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 50px;">Duyurular ve Haberler</h2>
-            
-            <div class="announcements-grid" id="duyurular-grid">
-                <!-- Duyurular content/duyurular.json'dan script.js tarafından otomatik doldurulur -->
+            <div class="section-title">
+                <h2>Çınar Diş Deposu Hakkında</h2>
+            </div>
+            <div class="about-text">
+                <p>
+                    40 yılı aşkın sektör tecrübemizle, diş hekimleri, ağız ve diş sağlığı merkezleri, hastaneler ve diş laboratuvarlarına güvenilir ürün ve teknik servis hizmetleri sunuyoruz.
+
+                    Firmamız, diş hekimliğinde kullanılan sarf malzemeleri, cihaz ve ekipmanların tedarikinin yanı sıra, bakım, onarım ve teknik servis hizmetlerinde uzmanlaşmıştır. Deneyimli teknik ekibimiz, cihazların arıza tespiti, bakım ve onarım işlemlerini titizlikle gerçekleştirerek müşterilerimizin iş süreçlerinin kesintisiz devam etmesini sağlamaktadır.
+
+                    Kaliteli ürün anlayışımız, hızlı teknik desteğimiz ve satış sonrası hizmetlerimizle müşterilerimize uzun yıllardır güvenilir çözümler sunuyoruz. Her zaman müşteri memnuniyetini ön planda tutarak, ihtiyaçlara en uygun ürün ve hizmeti en yüksek kalite standartlarında sağlamayı hedefliyoruz.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-title"><h2>Öne Çıkan Ürünlerimiz</h2></div>
+            <div class="carousel-container">
+                <button class="carousel-btn prev-btn">&#10094;</button>
+                
+                <div class="carousel-track" id="featured-carousel-track">
+                </div>
+                
+                <button class="carousel-btn next-btn">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="brands" class="brands-section">
+        <div class="container">
+            <h4 style="text-align: center; color: #888; font-family: var(--font-body); margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">Güvenilir Çözüm Ortaklarımız</h4>
+        </div>
+        
+        <div class="brands-marquee">
+            <div class="brands-track" id="dynamic-brands-track">
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container cta-grid">
+            <div class="cta-left">
+                <h2>Talepleriniz İçin</h2>
+                <p>Klinik ihtiyaçlarınız, fiyat talepleriniz ve siparişleriniz için uzman satış ekibimize form üzerinden anında ulaşabilirsiniz.</p>
+                <a href="iletisim.html" class="btn-primary" style="background: transparent; border-color: #fff; color: #fff;">Bizimle İletişime Geçin</a>
+            </div>
+            <div class="cta-right">
+                <h2>Teknik Servis & Onarım</h2>
+                <p>Klinik cihaz arızaları, periyodik bakım ve onarım destek hizmetlerimiz için teknik ekibimize direkt olarak ulaşın.</p>
+                <h3 id="cta-teknik-servis-tel" style="color: var(--color-primary); font-size: 2rem; margin-top: 10px; font-family: var(--font-body);">+90 212 555 55 55</h3>
             </div>
         </div>
     </section>
@@ -106,4 +177,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
