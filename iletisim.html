@@ -89,8 +89,9 @@
                         <p style="font-size: 0.9rem; color: #666;">Lütfen bilgilerinizi kontrol edip tekrar deneyiniz veya doğrudan WhatsApp üzerinden bizimle iletişime geçiniz.</p>
                     </div>
 
-                    <form name="iletisim" method="POST" data-netlify="true" class="premium-form" netlify>
-                        <input type="text" name="isim" placeholder="Adınız Soyadınız" required>
+                    <form name="iletisim" method="POST" data-netlify="true" class="premium-form" id="contactForm">
+                    
+                        <input type="hidden" name="form-name" value="iletisim" />
                         <input type="email" name="email" placeholder="E-posta Adresiniz" required>
                         <input type="text" name="konu" placeholder="Konu" required>
 
