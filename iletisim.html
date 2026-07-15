@@ -92,8 +92,7 @@
                     <form name="iletisim" method="POST" data-netlify="true" class="premium-form" id="contactForm">
                     
                         <input type="hidden" name="form-name" value="iletisim" />
-                        <input type="email" name="email" placeholder="E-posta Adresiniz" required>
-                        <input type="text" name="konu" placeholder="Konu" required>
+                        <input type="email" name="email" placeholder="E-posta Adresiniz" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">                        <input type="text" name="konu" placeholder="Konu" required>
 
                         <input type="text" name="klinik" placeholder="Klinik veya Kurum Adı">
                         <textarea name="mesaj" rows="8" placeholder="Mesajınızı veya taleplerinizi detaylıca yazabilirsiniz..." required></textarea>

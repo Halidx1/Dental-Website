@@ -517,20 +517,70 @@ function footerKategorileriOlustur() {
 // ==========================================================================
 // NETLIFY AJAX FORM GÖNDERİMİ
 // ==========================================================================
-function netlifyFormGonder(){
+// ==========================================================================
+// NETLIFY AJAX FORM GÖNDERİMİ VE TÜRKÇE DOĞRULAMA (VALIDATION)
+// ==========================================================================
+function netlifyFormGonder() {
     const contactForm = document.getElementById('contactForm');
     const successDiv = document.getElementById('form-success');
     const errorDiv = document.getElementById('form-error');
 
     if (contactForm) {
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const requiredInputs = contactForm.querySelectorAll('[required]');
+
+        // 1. BUTONUN GÖRSEL DURUMUNU KONTROL ETME (PASİF/AKTİF)
+        const checkButtonState = () => {
+            if (contactForm.checkValidity()) {
+                // Form tamamen doğruysa butonu canlandır
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            } else {
+                // Formda eksik varsa butonu soluk ve pasif göster
+                submitBtn.style.opacity = '0.5';
+                submitBtn.style.cursor = 'not-allowed';
+            }
+        };
+
+        // Sayfa yüklendiğinde butonun durumunu ilk kez kontrol et
+        checkButtonState();
+
+        // 2. HTML5 UYARI BALONCUKLARINI TÜRKÇELEŞTİRME
+        requiredInputs.forEach(input => {
+            // Kullanıcı inputa her veri girdiğinde buton durumunu güncelle ve hatayı sıfırla
+            input.addEventListener('input', function() {
+                this.setCustomValidity(''); // Önceki hata mesajını temizle
+                checkButtonState(); // Form geçerliyse butonu aktif yap
+            });
+
+            // Gönder'e basıldığında veya input geçeriz olduğunda (invalid tetiklendiğinde)
+            input.addEventListener('invalid', function(e) {
+                if (this.validity.valueMissing) {
+                    // Alan boş bırakıldıysa
+                    if(this.type === 'checkbox') {
+                        this.setCustomValidity('Lütfen formu göndermeden önce KVKK metnini onaylayınız.');
+                    } else {
+                        this.setCustomValidity('Lütfen bu alanı eksiksiz doldurunuz.');
+                    }
+                } else if ((this.validity.typeMismatch || this.validity.patternMismatch) && this.type === 'email') {
+                    this.setCustomValidity('Lütfen geçerli bir e-posta adresi giriniz (Örn: isim@alanadi.com).');
+                } else {
+                    // Diğer genel hatalar için
+                    this.setCustomValidity('Lütfen geçerli bir değer giriniz.');
+                }
+            });
+        });
+
+        // 3. AJAX (SAYFA YENİLENMEDEN) GÖNDERİM İŞLEMİ
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault(); // Sayfa yenilenmesini engelle
 
             // Butonu yükleniyor durumuna getir
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = "Gönderiliyor...";
-            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'wait';
+            submitBtn.disabled = true; // Gönderim sırasında art arda tıklanmaması için tam kilit
 
             // Form verilerini Netlify'ın anlayacağı formatta hazırla
             const formData = new FormData(contactForm);
@@ -558,6 +608,7 @@ function netlifyFormGonder(){
                 if(errorDiv) errorDiv.style.display = 'block';
                 submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
+                checkButtonState(); // Buton görünümünü eski haline getir
             });
         });
     }
