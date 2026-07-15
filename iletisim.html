@@ -78,8 +78,20 @@
 
                 <div class="contact-form-wrapper">
                     <h2 style="margin-bottom: 20px;">Bize Ulaşın</h2>
-                    <form name="iletisim" method="POST" data-netlify="true" class="premium-form">
-                        <input type="text" name="isim" placeholder="Adınız Soyadınız" required>
+
+                    <div id="form-success" style="display: none; background-color: #f5f1ea; border-left: 4px solid var(--color-primary); padding: 20px; margin-bottom: 20px; border-radius: 4px; text-align: left;">
+                        <h4 style="color: var(--color-dark); margin-bottom: 5px; font-family: var(--font-heading);">Mesajınız Alındı!</h4>
+                        <p style="font-size: 0.9rem; color: #666;">En kısa sürede tarafınıza geri dönüş sağlanacaktır. Teşekkür ederiz.</p>
+                    </div>
+
+                    <div id="form-error" style="display: none; background-color: #fce8e6; border-left: 4px solid #d93025; padding: 20px; margin-bottom: 20px; border-radius: 4px; text-align: left;">
+                        <h4 style="color: #d93025; margin-bottom: 5px; font-family: var(--font-heading);">Bir Hata Oluştu!</h4>
+                        <p style="font-size: 0.9rem; color: #666;">Lütfen bilgilerinizi kontrol edip tekrar deneyiniz veya doğrudan WhatsApp üzerinden bizimle iletişime geçiniz.</p>
+                    </div>
+
+                    <form name="iletisim" method="POST" data-netlify="true" class="premium-form" id="contactForm">
+                    
+                        <input type="hidden" name="form-name" value="iletisim" />
                         <input type="email" name="email" placeholder="E-posta Adresiniz" required>
                         <input type="text" name="konu" placeholder="Konu" required>
 

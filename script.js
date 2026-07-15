@@ -169,6 +169,10 @@ document.addEventListener('DOMContentLoaded', () => {
         footerKategorileriOlustur();
     }
 
+    if (typeof netlifyFormGonder === 'function') {
+        netlifyFormGonder();
+    }
+
 
     // --- MOBİL MENÜ (HAMBURGER) İŞLEVİ ---
     const hamburger = document.getElementById('hamburger');
@@ -508,6 +512,55 @@ function footerKategorileriOlustur() {
     });
 
     footerContainer.innerHTML = footerHTML;
+}
+
+// ==========================================================================
+// NETLIFY AJAX FORM GÖNDERİMİ
+// ==========================================================================
+function netlifyFormGonder(){
+    const contactForm = document.getElementById('contactForm');
+    const successDiv = document.getElementById('form-success');
+    const errorDiv = document.getElementById('form-error');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Sayfa yenilenmesini engelle
+
+            // Butonu yükleniyor durumuna getir
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Gönderiliyor...";
+            submitBtn.disabled = true;
+
+            // Form verilerini Netlify'ın anlayacağı formatta hazırla
+            const formData = new FormData(contactForm);
+            
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Başarılı gönderim
+                    contactForm.style.display = 'none'; // Formu gizle
+                    if(errorDiv) errorDiv.style.display = 'none';
+                    if(successDiv) successDiv.style.display = 'block'; // Başarı mesajını göster
+                    
+                    // Sayfayı başarı mesajına doğru hafifçe kaydır
+                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    throw new Error("Sunucu hatası");
+                }
+            })
+            .catch(error => {
+                // Hata oluştuğunda
+                if(errorDiv) errorDiv.style.display = 'block';
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
 }
 
 
