@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://cinardisdeposu.com/</loc>
+    <lastmod>2026-07-15</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://cinardisdeposu.com/duyurular.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://cinardisdeposu.com/gizlilik-politikasi.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <priority>0.90</priority>
+  </url>
+
+
+  <url>
+    <loc>https://cinardisdeposu.com/iletisim.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://cinardisdeposu.com/urun-detay.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://cinardisdeposu.com/urunler.html</loc>
+    <lastmod>2026-07-15</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+</urlset>
