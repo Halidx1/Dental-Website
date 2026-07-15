@@ -177,8 +177,26 @@ ul, li { list-style: none; } /* Global list sıfırlama (Tekrarlayan kodları ö
 .premium-form { display: flex; flex-direction: column; gap: 20px; }
 .premium-form input, .premium-form textarea { width: 100%; padding: 15px 20px; border: 1px solid #ddd; background-color: var(--color-light); font-family: var(--font-body); font-size: 0.95rem; outline: none; transition: 0.3s; }
 .premium-form input:focus, .premium-form textarea:focus { border-color: var(--color-primary); }
-.map-full-wrapper { width: 100%; margin-top: 60px; border: 1px solid #eee; padding: 10px; background: #fff; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-.map-full-wrapper iframe { display: block; width: 100%; height: 400px; }
+.map-full-wrapper { 
+    width: 100%; 
+    margin-top: 60px; 
+    border: 1px solid #eee; 
+    padding: 0; /* İç boşluğu sıfırlıyoruz ki kesme işlemi pürüzsüz olsun */
+    background: #fff; 
+    border-radius: 8px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    height: 550px; /* Haritanın ekranda kaplayacağı yeni, daha büyük alan */
+    overflow: hidden; /* Dışarı taşan siyah paneli gizleyen kritik sihir */
+    position: relative;
+}
+
+.map-full-wrapper iframe { 
+    display: block; 
+    width: 100%; 
+    height: 620px; /* Görünür alandan biraz daha uzun tutuyoruz (550 + 70) */
+    margin-top: -70px; /* Siyah paneli çerçevenin dışına itiyoruz */
+    border: none;
+}
 
 /* Ürün Detay Sayfası */
 .product-detail-section { padding: 80px 0; background-color: #FAFAFA; }
