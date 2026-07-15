@@ -193,8 +193,8 @@ ul, li { list-style: none; } /* Global list sıfırlama (Tekrarlayan kodları ö
 .map-full-wrapper iframe { 
     display: block; 
     width: 100%; 
-    height: 620px; /* Görünür alandan biraz daha uzun tutuyoruz (550 + 70) */
-    margin-top: -70px; /* Siyah paneli çerçevenin dışına itiyoruz */
+    height: 610px; /* 550 + 60 olarak ayarla */
+    margin-top: -56px; /* -70 yerine -56 tam sınır  */
     border: none;
 }
 
