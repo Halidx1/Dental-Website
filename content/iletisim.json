@@ -3,18 +3,18 @@
     "baslik": "Merkez",
     "adres": "Hocaalizade Mah. 7. Hamam Sok. No: 10, Osmangazi/Bursa",
     "tel": "0 212 221 65 00",
-    "mobil": "+90 532 452 63 18",
+    "mobil": "0 532 452 63 18",
     "mail": "info@cinardisdeposu.com"
   },
   "sube": {
     "baslik": "Şube",
     "adres": "Molla Gürani Mah. Karakeçeli Sok. No: 24/A, Fatih/İstanbul",
     "tel": "0 212 221 65 00",
-    "mobil": "+90 531 565 22 09",
+    "mobil": "0 531 565 22 09",
     "mail": "info@cinardisdeposu.com"
   },
   "footer_adres_kisa": "Hocaalizade Mah. 7. Hamam Sok. No:10 Osmangazi/BURSA",
-  "footer_telefon": "+90 212 221 65 00",
+  "footer_telefon": "0 212 221 65 00",
   "cta_teknik_servis_tel": "0531 263 03 90",
   "whatsapp_numara": "905315652209"
 }
