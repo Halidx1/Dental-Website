@@ -517,6 +517,9 @@ function footerKategorileriOlustur() {
 // ==========================================================================
 // NETLIFY AJAX FORM GÖNDERİMİ (DOSYA DESTEKLİ VE TÜRKÇE VALIDATION)
 // ==========================================================================
+// ==========================================================================
+// NETLIFY AJAX FORM GÖNDERİMİ (ÇOKLU DOSYA VE TÜRKÇE VALIDATION)
+// ==========================================================================
 function netlifyFormGonder() {
     const contactForm = document.getElementById('contactForm');
     const successDiv = document.getElementById('form-success');
@@ -524,26 +527,33 @@ function netlifyFormGonder() {
 
     if (contactForm) {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const fileInput = document.getElementById('dosya-yukle');
+        const fileInputs = contactForm.querySelectorAll('.dosya-yukle');
+        const fileErrorMsg = document.getElementById('dosya-hata-mesaji');
 
-        // 1. BUTONUN GÖRSEL DURUMUNU KONTROL ETME
+        // 1. BUTONUN VE DOSYA BOYUTLARININ KONTROLÜ
         const checkButtonState = () => {
-            let isFileValid = true;
+            let totalSize = 0;
             
-            // Dosya boyutu kontrolü (5MB = 5 * 1024 * 1024 = 5242880 byte)
-            if (fileInput && fileInput.files.length > 0) {
-                const fileSize = fileInput.files[0].size;
-                if (fileSize > 5242880) {
-                    isFileValid = false;
-                    fileInput.setCustomValidity('Yüklediğiniz görsel çok büyük. Lütfen 5MB altı bir dosya seçiniz.');
-                } else {
-                    fileInput.setCustomValidity(''); // Boyut uygunsa hatayı temizle
+            // Tüm dosya inputlarını gez ve seçili dosya varsa boyutunu toplama ekle
+            fileInputs.forEach(input => {
+                if (input.files.length > 0) {
+                    totalSize += input.files[0].size;
                 }
-            } else if (fileInput) {
-                fileInput.setCustomValidity(''); // Dosya eklenmediyse hata yok (çünkü isteğe bağlı)
+            });
+
+            // Toplam boyut kontrolü (7MB = 7 * 1024 * 1024 = 7340032 byte)
+            const isFileValid = totalSize <= 7340032;
+
+            if (!isFileValid) {
+                fileErrorMsg.style.display = 'block';
+                // Kullanıcının form göndermesini engellemek için son inputa hata atıyoruz
+                fileInputs[0].setCustomValidity('Toplam boyut 7MB sınırını aşıyor.');
+            } else {
+                fileErrorMsg.style.display = 'none';
+                fileInputs[0].setCustomValidity(''); 
             }
 
-            // Hem form kuralları doğruysa hem de dosya boyutu uygunsa butonu aç
+            // Hem form kuralları doğruysa hem de toplam boyut uygunsa butonu aç
             if (contactForm.checkValidity() && isFileValid) {
                 submitBtn.style.opacity = '1';
                 submitBtn.style.cursor = 'pointer';
@@ -555,23 +565,21 @@ function netlifyFormGonder() {
 
         checkButtonState();
 
-        // 2. TÜM INPUTLARI VE DOSYA ALANINI DİNLE
+        // 2. TÜM INPUTLARI DİNLE
         const allInputs = contactForm.querySelectorAll('input, textarea, select');
         allInputs.forEach(input => {
             
             input.addEventListener('input', function() {
                 if (this.type !== 'file') {
-                    this.setCustomValidity(''); // Yazı yazıldıkça standart hataları sıfırla
+                    this.setCustomValidity(''); 
                 }
                 checkButtonState();
             });
             
-            // Dosya seçildiğinde değişimi algıla
             input.addEventListener('change', function() {
                 checkButtonState();
             });
 
-            // Yanlış bir şey varsa Türkçe uyar
             input.addEventListener('invalid', function(e) {
                 if (this.validity.valueMissing) {
                     if(this.type === 'checkbox') {
@@ -584,7 +592,6 @@ function netlifyFormGonder() {
                 } else if (this.type !== 'file') {
                     this.setCustomValidity('Lütfen geçerli bir değer giriniz.');
                 }
-                // Dosya (file) hatası, checkButtonState içinde özel olarak atanıyor.
             });
         });
 
@@ -598,11 +605,8 @@ function netlifyFormGonder() {
             submitBtn.style.cursor = 'wait';
             submitBtn.disabled = true; 
 
-            // Form verilerini al (İçinde dosyayı da otomatik barındırır)
             const formData = new FormData(contactForm);
             
-            // ÖNEMLİ: Dosya gönderiminde 'Content-Type' KESİNLİKLE belirtilmez!
-            // Tarayıcı bunu Multipart Form Boundary olarak otomatik oluşturur.
             fetch("/", {
                 method: "POST",
                 body: formData
