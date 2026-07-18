@@ -2,22 +2,72 @@
   "teknik_servis": {
     "aciklama": "Klinik cihazlarınızın kesintisiz çalışması için satış öncesinde ve satış sonrasında yanınızdayız.",
     "hizmetler": [
-      { "ikon": "tespit", "baslik": "Arıza Tespiti", "aciklama": "Cihazlarınızdaki sorunları hızlı ve doğru şekilde teşhis ediyoruz." },
-      { "ikon": "bakim", "baslik": "Bakım", "aciklama": "Periyodik bakım hizmetleriyle cihazlarınızın ömrünü uzatıyoruz." },
-      { "ikon": "anahtar", "baslik": "Onarım", "aciklama": "Deneyimli teknik ekibimizle arızalarınızı en kısa sürede gideriyoruz." },
-      { "ikon": "destek", "baslik": "Satış Sonrası Destek", "aciklama": "Satın alma sonrasında da teknik konularda yanınızda olmaya devam ediyoruz." }
+      {
+        "ikon": "tespit",
+        "baslik": "Arıza Tespiti",
+        "aciklama": "Cihazlarınızdaki sorunları hızlı ve doğru şekilde teşhis ediyoruz."
+      },
+      {
+        "ikon": "bakim",
+        "baslik": "Bakım",
+        "aciklama": "Periyodik bakım hizmetleriyle cihazlarınızın ömrünü uzatıyoruz."
+      },
+      {
+        "ikon": "anahtar",
+        "baslik": "Onarım",
+        "aciklama": "Deneyimli teknik ekibimizle arızalarınızı en kısa sürede gideriyoruz."
+      },
+      {
+        "ikon": "destek",
+        "baslik": "Satış Sonrası Destek",
+        "aciklama": "Satın alma sonrasında da teknik konularda yanınızda olmaya devam ediyoruz."
+      }
     ]
   },
   "avantajlar": [
-    { "ikon": "deneyim", "baslik": "40+ Yıllık Deneyim", "aciklama": "Diş hekimleri, klinikler ve laboratuvarlara sunduğumuz uzun yıllara dayanan güvenilir hizmet." },
-    { "ikon": "anahtar", "baslik": "Teknik Servis & Destek", "aciklama": "Cihaz arıza tespiti, bakım ve onarımda deneyimli teknik ekibimizle satış sonrası kesintisiz destek." },
-    { "ikon": "marka", "baslik": "Güvenilir Marka Ortaklıkları", "aciklama": "Zhermack, 3M Espe, Kerr Dental, Kulzer ve Vannini Dental gibi sektör lideri markalarla çalışıyoruz." },
-    { "ikon": "sube", "baslik": "İki Şube ile Yaygın Hizmet", "aciklama": "Bursa merkez ve İstanbul şubemizle müşterilerimize daha hızlı ulaşıyoruz." },
-    { "ikon": "kalite", "baslik": "Kaliteli Ürün Anlayışı", "aciklama": "İhtiyaçlarınıza en uygun ürünü en yüksek kalite standartlarında sunmayı hedefliyoruz." },
-    { "ikon": "musteri", "baslik": "Müşteri Memnuniyeti Odaklı", "aciklama": "Her zaman müşteri memnuniyetini ön planda tutan bir hizmet anlayışı benimsiyoruz." }
+    {
+      "ikon": "deneyim",
+      "baslik": "40+ Yıllık Deneyim",
+      "aciklama": "Diş hekimleri, klinikler ve laboratuvarlara sunduğumuz uzun yıllara dayanan güvenilir hizmet."
+    },
+    {
+      "ikon": "anahtar",
+      "baslik": "Teknik Servis & Destek",
+      "aciklama": "Cihaz arıza tespiti, bakım ve onarımda deneyimli teknik ekibimizle satış sonrası kesintisiz destek."
+    },
+    {
+      "ikon": "marka",
+      "baslik": "Güvenilir Marka Ortaklıkları",
+      "aciklama": "Zhermack, 3M Espe, Kerr Dental, Kulzer ve Vannini Dental gibi sektör lideri markalarla çalışıyoruz."
+    },
+    {
+      "ikon": "sube",
+      "baslik": "İki Şube ile Yaygın Hizmet",
+      "aciklama": "Bursa merkez ve İstanbul şubemizle müşterilerimize daha hızlı ulaşıyoruz."
+    },
+    {
+      "ikon": "kalite",
+      "baslik": "Kaliteli Ürün Anlayışı",
+      "aciklama": "İhtiyaçlarınıza en uygun ürünü en yüksek kalite standartlarında sunmayı hedefliyoruz."
+    },
+    {
+      "ikon": "musteri",
+      "baslik": "Müşteri Memnuniyeti Odaklı",
+      "aciklama": "Her zaman müşteri memnuniyetini ön planda tutan bir hizmet anlayışı benimsiyoruz."
+    }
   ],
   "istatistikler": [
-    { "sayi": "40+", "etiket": "Yıllık Deneyim" },
-    { "sayi": "2", "etiket": "Şube ile Hizmet" }
+    {
+      "sayi": "40",
+      "etiket": "Yıllık Deneyim"
+    },
+    {
+      "sayi": "2",
+      "etiket": "Şube ile Hizmet"
+    },
+    {
+      "sayi": "10+",
+      "etiket": "Güvenilir Çözüm Ortağı"
+    }
   ]
 }
