@@ -1,13 +1,13 @@
 {
   "merkez": {
-    "baslik": "Merkez",
+    "baslik": "Bursa Merkez",
     "adres": "Hocaalizade Mah. 7. Hamam Sok. No: 10, Osmangazi/Bursa",
     "tel": "0 212 221 65 00",
     "mobil": "0 532 452 63 18",
     "mail": "info@cinardisdeposu.com"
   },
   "sube": {
-    "baslik": "Şube",
+    "baslik": "İstanbul Şube",
     "adres": "Molla Gürani Mah. Karakeçeli Sok. No: 24/A, Fatih/İstanbul",
     "tel": "0 212 221 65 00",
     "mobil": "0 531 565 22 09",

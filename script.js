@@ -1,38 +1,39 @@
 // ============================================================
 // MERKEZİ VERİ YÜKLEME (CMS TARAFINDAN YÖNETİLEN JSON DOSYALARI)
 // ============================================================
-// Aşağıdaki değişkenler artık content/*.json dosyalarından
-// doldurulur. Panel üzerinden yapılan her değişiklik bu
-// dosyalara yazılır; sayfa yüklendiğinde en güncel veri buradan
-// okunur. Eski hardcoded veri artık content/urunler.json,
-// content/markalar.json, content/duyurular.json ve
-// content/iletisim.json dosyalarında yaşıyor.
+// Ürün, marka, duyuru, iletişim ve kurumsal (teknik servis /
+// avantajlar / istatistikler) verileri artık content/*.json
+// dosyalarından okunuyor. Panel üzerinden yapılan her değişiklik
+// bu dosyalara yazılır; sayfa yüklendiğinde en güncel veri
+// buradan okunur.
 
 let urunVerileri = {};
 let markaVerileri = [];
 let duyuruVerileri = [];
 let iletisimVerileri = {};
+let kurumsalVerileri = {};
 
 // Sayfadaki her script (script.js'in kendisi ve urun-detay.html'in
 // içindeki script) veriye ihtiyaç duyduğunda bu promise'i bekler.
 window.veriYuklePromise = (async function verileriYukle() {
     try {
-        const [urunRes, markaRes, duyuruRes, iletisimRes] = await Promise.all([
+        const [urunRes, markaRes, duyuruRes, iletisimRes, kurumsalRes] = await Promise.all([
             fetch('content/urunler.json'),
             fetch('content/markalar.json'),
             fetch('content/duyurular.json'),
-            fetch('content/iletisim.json')
+            fetch('content/iletisim.json'),
+            fetch('content/kurumsal.json')
         ]);
 
         const urunData = urunRes.ok ? await urunRes.json() : { urunler: [] };
         const markaData = markaRes.ok ? await markaRes.json() : { markalar: [] };
         const duyuruData = duyuruRes.ok ? await duyuruRes.json() : { duyurular: [] };
         const iletisimData = iletisimRes.ok ? await iletisimRes.json() : {};
+        const kurumsalData = kurumsalRes.ok ? await kurumsalRes.json() : {};
 
         // urunler.json bir DİZİ (array) formatındadır; mevcut kodun
         // tamamı ise { "urun-id": {...} } şeklinde bir OBJE bekliyor.
-        // Geriye dönük uyumluluk için burada diziyi obje haline çeviriyoruz,
-        // böylece aşağıdaki tüm fonksiyonlar tek satır değişmeden çalışır.
+        // Geriye dönük uyumluluk için burada diziyi obje haline çeviriyoruz.
         urunVerileri = {};
         (urunData.urunler || []).forEach(urun => {
             const { id, ...detay } = urun;
@@ -42,6 +43,7 @@ window.veriYuklePromise = (async function verileriYukle() {
         markaVerileri = markaData.markalar || [];
         duyuruVerileri = duyuruData.duyurular || [];
         iletisimVerileri = iletisimData || {};
+        kurumsalVerileri = kurumsalData || {};
 
     } catch (err) {
         console.error("İçerik verileri (content/*.json) yüklenirken hata oluştu:", err);
@@ -49,163 +51,54 @@ window.veriYuklePromise = (async function verileriYukle() {
 })();
 
 // ============================================================
-// (ESKİ VERİ BLOĞU - ARTIK KULLANILMIYOR, REFERANS İÇİN SAKLANDI)
+// İKON KÜTÜPHANESİ
 // ============================================================
-/*
-const urunVerileri_ESKI = {
-    "protesil-set": {
-        kategori: "Ölçü Maddeleri",
-        baslik: "Protesil Set C Tipi",
-        aciklama: "Çift baskı tekniğinde ilk baskının alınması için geliştirilmiş yüksek viskoziteli yoğunlaşma silikonudur. Ağza yerleştirildiğinde ekstra yumuşak bir doku sunarken, elastikiyet ve sertlik arasında kusursuz bir denge kurar.",
-        ozellikler: [
-            "Yüksek ilk pürüzsüzlük sayesinde basit ve güvenli manuel karıştırma imkanı.",
-            "Çalışma ve kürlenme süresi arasında optimum oran.",
-            "Yüksek boyutsal kararlılık ve uzun ömürlü yapı.",
-            "Paket İçeriği: I. Ölçü 900 ml. + II. Ölçü 140 ml. + Katalizör 60 ml tüp."
-        ],
-        gorseller: [
-            "images/products/protesil-set-c-tipi/PROTESİL C tipi set.jpeg", 
-            "images/products/protesil-set-c-tipi/c tipi.jpg",
-            "images/products/protesil-set-c-tipi/katalizör 1.jpeg",
-            "images/products/protesil-set-c-tipi/katalizör.jpeg",
-            "images/products/protesil-set-c-tipi/protesil light.jpeg",
-            "images/products/protesil-set-c-tipi/Protesil putty.jpeg",
-            "images/products/protesil-set-c-tipi/protesil.jpeg"
-        ]
-    },
-    "b-tipi-otoklav-23lt": {
-        kategori: "Klinik Cihazlar ve Ekipmanlar",
-        baslik: "B Tipi Otoklav (23 Litre)",
-        aciklama: "Klinik sterilizasyon ihtiyaçlarınız için yüksek kapasiteli, LCD ekranlı ve entegre yazıcılı premium B sınıfı otoklav cihazı.",
-        ozellikler: [
-            "Kapasite: 23 Litre",
-            "Ürün Boyutu: 66 x 50 x 43 cm",
-            "Ekran: Kullanıcı dostu LCD panel",
-            "Güvenlik: Çift kilit sistemi ile ekstra koruma",
-            "Bağlantı ve Raporlama: USB ve dahili Printer (Yazıcı) desteği",
-            "Programlar: 7 Önceden ayarlanmış program, 2 Test programı ve 1 Özel program"
-        ],
-        gorseller: [
-            "images/products/b-tipi-otoklav/otoklav.png",
-            "images/products/b-tipi-otoklav/otoklav-23lt.jpeg"
-        ]
-    },
-    "cromatic-aljinat": {
-        kategori: "Ölçü Maddeleri",
-        baslik: "Cromatic Aljinat (453g)",
-        aciklama: "Cromatic, yüksek hassasiyet gerektiren diş ölçüleri için geliştirilmiş, fazlı kromatik göstergeye sahip premium bir aljinattır. Özel formülasyonu, karıştırma ve sertleşme sürelerini takip etme zorunluluğunu ortadan kaldırarak; çalışma ve sertleşme süresi boyunca renk değiştiren bileşenleri sayesinde hatasız bir kullanım süreci sunar. Rutin diş ölçüleri, protez çalışmaları ve çalışma modelleri gibi pek çok alanda ideal sonuçlar verir.",
-        ozellikler: [
-            "Fazlı Kromatik Gösterge: 3 farklı renk aşaması ile karıştırma ve çalışma sürelerini görsel olarak takip etme kolaylığı sağlar.",
-            "Tozsuz ve Glütensiz: Özel formülasyonu sayesinde kullanım sırasında tozu tamamen ortadan kaldırır; glütensiz ve hipoalerjenik yapısıyla güvenli bir kullanım sunar.",
-            "Yüksek Detay Tanımı: Model üzerinde mükemmel detay hassasiyeti sağlar ve deformasyon olmadan kolayca çıkarılır.",
-            "Optimum Alçı Uyumu: Alçı modellerle mükemmel uyum göstererek yüzey kalitesini artırır.",
-            "Konfor: Vanilla aroması ile hasta konforunu destekler.",
-            "Standartlar: ISO 21563 sertifikasına sahiptir.",
-            "Sertleşme Süresi: 2 dakika 35 saniye",
-            "Ambalaj: 453g paket"
-        ],
-        gorseller: [
-            "images/products/cromatic-aljinat/cromatic.jpeg",
-            "images/products/cromatic-aljinat/cromatic-aljinat.jpeg"
-        ]
-    },
-    "prestige-a-tipi-set": {
-        kategori: "Ölçü Maddeleri",
-        baslik: "Prestige A Tipi Ölçü Seti",
-        aciklama: "Yüksek kaliteli ve hassas diş ilk izlenimleri için tasarlanmış, çift izlenim tekniğinde kullanılmak üzere ekstra yumuşak, hızlı sertleşen tiksotropik ek silikon. Özellikle çalışma aşamasında yumuşak, ağızda hızlı sertleşme süresi sunar. Vulkanizasyondan sonra dengeli sertlik, hastanın ağzından kolayca çıkarılmasını sağlar. Çalışma ve kürlenme süresi arasında uygun oran ve yüksek boyutsal kararlılık sunar.",
-        ozellikler: [
-            "Çift izlenim tekniği için ideal ekstra yumuşak yapı.",
-            "Hızlı sertleşme özelliği sayesinde klinik konforu.",
-            "Yüksek boyutsal kararlılık ve hassas detay reprodüksiyonu.",
-            "Paket İçeriği: Prestige Putty Soft 300ml Baz + 300ml Katalizör + 2 x 50 ml Prestige Light Kartuş."
-        ],
-        gorseller: [
-            "images/products/prestige-a-tipi-set/prestige a tipi 1. ölçü.jpeg",
-            "images/products/prestige-a-tipi-set/1. ölçü a tipi.jpeg",
-            "images/products/prestige-a-tipi-set/2. ölçü a tipi.jpeg",
-            "images/products/prestige-a-tipi-set/a tipi 1. ölçü.jpeg",
-            "images/products/prestige-a-tipi-set/a tipi 2..jpeg"
-        ]
-    },
-    "prestige-labor": {
-        kategori: "Laboratuvar Ürünleri",
-        baslik: "Prestige Labor A Silikon (5+5 kg)",
-        aciklama: "Laboratuvar için yüksek kesinlikte A silikon ve protez dublikasyonu sağlamaktadır. Metal yapı tasarımında kontrol şablonu, mufla içindeki protezi yüksek sıcaklıktan izole eder ve korur.",
-        ozellikler: [
-            "130 dereceye kadar yüksek ısıya dayanıklıdır.",
-            "Hassas metal yapı tasarımlarında kusursuz kontrol şablonu görevi görür.",
-            "Paketleme Detayları: 5 kg Baz + 5 kg Katalizör."
-        ],
-        gorseller: [
-            "images/products/prestige-labor/prestige 5+5 labor.jpeg"
-        ]
-    },
-    "prestige-vdg-mask": {
-        kategori: "Laboratuvar Ürünleri",
-        baslik: "Prestige VDG Mask",
-        aciklama: "Rigid, yüksek hassasiyetli gingival maskelerin yeniden üretimi için geliştirilmiş bir ek silikondur. Hassas bir tanımlama aralığı, yüksek doğruluk ve boyutsal stabilite sağlar. Uygulama sırasında yüksek akışkanlık ve vulkanizasyondan sonra dengeli bir sertlik sunar.",
-        ozellikler: [
-            "Model üzerinde gingivanın bitirilmesi sırasında kenarların kesilmesini kolaylaştıran dengeli sertlik.",
-            "Doğrudan teknikle kullanım için özel formülasyon.",
-            "Paketleme Detayları: 2 x 50 ml Kartuş + Separator."
-        ],
-        gorseller: [
-            "images/products/prestige-vdg-mask/vdg mask.jpeg",
-            "images/products/prestige-vdg-mask/prestige vdg mask.jpeg"
-        ]
-    },
-    
-    "protesil-elastic-aljinat": {
-        kategori: "Ölçü Maddeleri",
-        baslik: "Protesil Elastic Aljinat (500g)",
-        aciklama: "Ortodontik diş ölçüleri için tiksotropik hızlı sertleşen elastik aljinat. Ürünün yüksek elastikiyeti, yüksek hassasiyetli diş ölçülerinin yeniden üretilmesini ve deformasyon olmadan ağızdan kolayca çıkarılmasını sağlar.",
-        ozellikler: [
-            "Ekstra ince kıvam ve optimum alçı uyumluluğu.",
-            "Alerji riskini minimize eden glütensiz yapı.",
-            "Paketleme Detayları: 500g"
-        ],
-        gorseller: [
-            "images/products/protesil-elastic-aljinat/protesil elastic aljinat.jpeg",
-            "images/products/protesil-elastic-aljinat/protesil aljinat elastic.jpeg"
-
-        ]
-    },
-
-    "protesil-labor": {
-        kategori: "Laboratuvar Ürünleri",
-        baslik: "Protesil Labor Silikon",
-        aciklama: "Çok yüksek kıvamlı, yüksek viskoziteli, özellikle teknisyen laboratuvarı için formüle edilmiş kondensasyon silikonudur[cite: 12]. Kırmızı tonu sayesinde homojen bir karışımın tanımlanmasına izin veren Protesil Catalyst Gel Labor ile birlikte kullanılır[cite: 12].",
-        ozellikler: [
-            "80 Shore A yüksek sertlik derecesi[cite: 12].",
-            "130°C'den fazla ısıya karşı yüksek direnç[cite: 12].",
-            "Paketleme Detayları: 5 kg + 2 Katalizör veya 25 kg + 7 Katalizör seçenekleri[cite: 12]."
-        ],
-        gorseller: [
-            "images/products/protesil-labor/protesil labor katalizör.jpeg",
-            "images/products/protesil-labor/protesil 5 kg labor.jpeg",
-            "images/products/protesil-labor/protesil labor 5 kg.jpeg"
-        ]
-    }
+// Hem "Hakkımızda" bölümündeki kategori ikonları (isimden otomatik
+// eşleştirilir) hem de Teknik Servis / Avantajlarımız bölümlerindeki
+// panelden seçilebilir ikonlar burada tanımlanır. Basit, tek renkli
+// çizgi ikonlardır; renk CSS üzerinden (currentColor) kontrol edilir.
+const ICON_KUTUPHANESI = {
+    dis: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.8 0-5 1.8-5.8 4-1 2.7-.6 5.3.2 7.7.5 1.4 1 3.2 1.9 4.1.5.5 1 0 1.2-.6.4-1.1.6-2.7 1.2-2.7s.8 1.6 1.2 2.7c.2.6.7 1.1 1.2.6.9-.9 1.4-2.7 1.9-4.1.8-2.4 1.2-5 .2-7.7-.8-2.2-3-4-5.8-4z"/></svg>',
+    olcu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6M10 2v6.5L4.6 18.8A2 2 0 006.4 22h11.2a2 2 0 001.8-3.2L14 8.5V2"/><path d="M7.5 15h9"/></svg>',
+    klinik: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M8 9h3l1-2 2 4 1-2h1"/></svg>',
+    laboratuvar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.3L4.7 19a2 2 0 001.7 3h11.2a2 2 0 001.7-3L14 9.3V2"/><path d="M9 2h6M7.5 14.5h9"/></svg>',
+    implant: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.5 3.5v3l-1.2 1.2v1.8l1.2 1.2v1.8l-1.2 1.2v1.8L12 22l-2.3-4.5v-1.8L8.5 14.5v-1.8l1.2-1.2v-1.8L8.5 8.5v-3z"/></svg>',
+    elaletleri: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3l5 9M17 3l-5 9M12 12v9M9 21h6"/></svg>',
+    sarf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v3l2 2.5v12.5a2 2 0 01-2 2H9a2 2 0 01-2-2V7.5L9 5V2z"/><path d="M9 10.5h6"/></svg>',
+    enstruman: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12L11 5.5l7.5 7.5L12 20.5z"/><path d="M14.5 5.5l3.8-3.8M18.3 9.3l2.7-2.7"/></svg>',
+    deneyim: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 3"/></svg>',
+    anahtar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.8 2.8-2-2z"/></svg>',
+    marka: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.3 12.7L6 21l6-3 6 3-2.3-8.3"/></svg>',
+    sube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.8 7-11.5a7 7 0 10-14 0C5 14.2 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+    kalite: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3.5v6c0 5-3.3 7.8-7 9.5-3.7-1.7-7-4.5-7-9.5v-6z"/><path d="M9 12l2 2 4-4.5"/></svg>',
+    musteri: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9.5h.01M15 9.5h.01"/></svg>',
+    tespit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+    bakim: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M4.2 6.2l2.1 2.1M17.7 15.7l2.1 2.1M3 12h3M18 12h3M4.2 17.8l2.1-2.1M17.7 8.3l2.1-2.1"/></svg>',
+    destek: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5c5-1.8 8.5-5.8 8.5-11V6l-8.5-3.5L3.5 6v4.5c0 5.2 3.5 9.2 8.5 11z"/><path d="M9 12l2 2 4-4.5"/></svg>'
 };
 
-// MARKA VERİTABANI
-const markaVerileri_ESKI2 = [
-    { ad: "Vannini Dental", logo: "images/brands/vanini.png", url: "https://www.vanninidental.com" },
-    { ad: "Zhermack", logo: "images/brands/zhermack.png", url: "https://www.zhermack.com" },
-    { ad: "3M Espe", logo: "images/brands/3m.png", url: "https://www.3m.com.tr" },
-    { ad: "Kerr Dental", logo: "images/brands/kerr.png", url: "https://www.kerrdental.com" },
-    { ad: "Kulzer", logo: "images/brands/kulzer.png", url: "https://www.kulzer.com" }
-];
-*/
-// ============================================================
-// (ESKİ VERİ BLOĞU SONU)
-// ============================================================
+// Kategori adına göre en uygun ikonu bulur (anahtar kelime eşleşmesi).
+// Panelden eklenen yeni bir kategori bu listede yoksa "dis" ikonu
+// otomatik olarak kullanılır, sistem hiçbir zaman kırılmaz.
+function ikonBul(anahtarKelime) {
+    return ICON_KUTUPHANESI[anahtarKelime] || ICON_KUTUPHANESI.dis;
+}
+
+function kategoriIkonuBul(kategoriAdi) {
+    const ad = (kategoriAdi || '').toLocaleLowerCase('tr-TR');
+    if (ad.includes('ölçü')) return ICON_KUTUPHANESI.olcu;
+    if (ad.includes('implant')) return ICON_KUTUPHANESI.implant;
+    if (ad.includes('laboratuvar')) return ICON_KUTUPHANESI.laboratuvar;
+    if (ad.includes('el alet')) return ICON_KUTUPHANESI.elaletleri;
+    if (ad.includes('enstrüman') || ad.includes('dinamik')) return ICON_KUTUPHANESI.enstruman;
+    if (ad.includes('sarf')) return ICON_KUTUPHANESI.sarf;
+    if (ad.includes('klinik')) return ICON_KUTUPHANESI.klinik;
+    return ICON_KUTUPHANESI.dis;
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
 
     // Önce content/*.json dosyalarının yüklenmesini bekliyoruz.
-    // Bu sayede urunVerileri, markaVerileri, duyuruVerileri ve
-    // iletisimVerileri aşağıdaki fonksiyonlar çalışmadan önce dolu olur.
     await window.veriYuklePromise;
 
     if (typeof navigasyonUrunleriOlustur === 'function') {
@@ -216,7 +109,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             anaSayfaCarouselOlustur();
     }
 
-    // Dinamik markaları oluştur
     if (typeof dinamikMarkalariOlustur === 'function') {
         dinamikMarkalariOlustur();
     }
@@ -238,6 +130,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     // YENİ: İletişim bilgilerini (footer, iletişim sayfası, CTA, WhatsApp) doldur
     if (typeof iletisimBilgileriniDoldur === 'function') {
         iletisimBilgileriniDoldur();
+    }
+
+    // YENİ: Hakkımızda bölümündeki kategori ikon ızgarası
+    if (typeof kategoriGridOlustur === 'function') {
+        kategoriGridOlustur();
+    }
+
+    // YENİ: Teknik Servis bölümü (Anasayfa, Hakkımızda'dan önce)
+    if (typeof teknikServisOlustur === 'function') {
+        teknikServisOlustur();
+    }
+
+    // YENİ: Avantajlarımız bölümü
+    if (typeof avantajlarGridOlustur === 'function') {
+        avantajlarGridOlustur();
+    }
+
+    // YENİ: İstatistikler bölümü
+    if (typeof istatistiklerGridOlustur === 'function') {
+        istatistiklerGridOlustur();
     }
 
     if (typeof netlifyFormGonder === 'function') {
@@ -605,9 +517,14 @@ function duyurulariOlustur() {
             ? `<p style="font-size:0.8rem; color:#999; margin-bottom:8px;">${new Date(duyuru.tarih).toLocaleDateString('tr-TR')}</p>`
             : '';
 
+        // Panelden görsel yüklenmişse onu, yüklenmemişse gri bir alan gösteriyoruz
+        const gorselHTML = duyuru.gorsel
+            ? `<img src="${duyuru.gorsel}" alt="${duyuru.baslik}" style="width:100%; height:150px; object-fit:cover; border-radius:4px;">`
+            : `<div class="card-img" style="background: #eee; height: 150px;"></div>`;
+
         grid.innerHTML += `
             <div class="announcement-card">
-                <div class="card-img" style="background: #eee; height: 150px;"></div>
+                ${gorselHTML}
                 ${tarihHTML}
                 <h3>${duyuru.baslik}</h3>
                 <p>${duyuru.aciklama}</p>
@@ -618,45 +535,162 @@ function duyurulariOlustur() {
 
 // ==========================================================================
 // DİNAMİK İLETİŞİM BİLGİLERİ DOLDURUCU
-// (footer, iletisim.html adres kutuları, anasayfa CTA, WhatsApp linki)
+// (footer - iki şube kutusu -, iletisim.html adres kutuları, anasayfa CTA,
+//  teknik servis bölümü ve WhatsApp linki)
 // ==========================================================================
 
 function iletisimBilgileriniDoldur() {
     if (!iletisimVerileri || Object.keys(iletisimVerileri).length === 0) return;
 
-    const doldur = (id, deger) => {
+    const metniDoldur = (id, deger) => {
         const el = document.getElementById(id);
         if (el && deger !== undefined) el.innerText = deger;
     };
 
-    // --- Tüm sayfalarda ortak olan FOOTER ---
-    doldur('footer-merkez-adres', iletisimVerileri.footer_adres_kisa);
-    doldur('footer-telefon', iletisimVerileri.footer_telefon);
+    // Google Maps'te arama linki oluşturur (adresi tıklanabilir yapar)
+    const haritaLinki = (adres) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(adres)}`;
 
-    // --- iletisim.html sayfasındaki Merkez / Şube kutuları ---
+    // Bir şube nesnesini (merkez veya sube), footer'daki karşılık gelen
+    // <ul> kutusuna, tüm bilgiler tıklanabilir olacak şekilde basar.
+    const subeFooterKutusunuDoldur = (onEkKey, subeVerisi) => {
+        const baslikEl = document.getElementById(`footer-${onEkKey}-baslik`);
+        const adresEl = document.getElementById(`footer-${onEkKey}-adres-link`);
+        const telEl = document.getElementById(`footer-${onEkKey}-tel-link`);
+        const mobilEl = document.getElementById(`footer-${onEkKey}-mobil-link`);
+        const mailEl = document.getElementById(`footer-${onEkKey}-mail-link`);
+
+        if (!subeVerisi) return;
+        if (baslikEl) baslikEl.innerText = subeVerisi.baslik;
+        if (adresEl) { adresEl.href = haritaLinki(subeVerisi.adres); adresEl.innerText = subeVerisi.adres; }
+        if (telEl) { telEl.href = `tel:${(subeVerisi.tel || '').replace(/\s/g, '')}`; telEl.innerText = `Tel: ${subeVerisi.tel}`; }
+        if (mobilEl) { mobilEl.href = `tel:${(subeVerisi.mobil || '').replace(/\s/g, '')}`; mobilEl.innerText = `Mobil: ${subeVerisi.mobil}`; }
+        if (mailEl) { mailEl.href = `mailto:${subeVerisi.mail}`; mailEl.innerText = subeVerisi.mail; }
+    };
+
+    // --- Footer: Bursa Merkez ve İstanbul Şube kutuları (tüm sayfalarda ortak) ---
+    subeFooterKutusunuDoldur('merkez', iletisimVerileri.merkez);
+    subeFooterKutusunuDoldur('sube', iletisimVerileri.sube);
+
+    // --- iletisim.html sayfasındaki Merkez / Şube adres kutuları ---
     if (iletisimVerileri.merkez) {
-        doldur('merkez-baslik', iletisimVerileri.merkez.baslik);
-        doldur('merkez-adres', iletisimVerileri.merkez.adres);
-        doldur('merkez-tel', iletisimVerileri.merkez.tel);
-        doldur('merkez-mobil', iletisimVerileri.merkez.mobil);
-        doldur('merkez-mail', iletisimVerileri.merkez.mail);
+        metniDoldur('merkez-baslik', iletisimVerileri.merkez.baslik);
+        metniDoldur('merkez-adres', iletisimVerileri.merkez.adres);
+        metniDoldur('merkez-tel', iletisimVerileri.merkez.tel);
+        metniDoldur('merkez-mobil', iletisimVerileri.merkez.mobil);
+        metniDoldur('merkez-mail', iletisimVerileri.merkez.mail);
     }
     if (iletisimVerileri.sube) {
-        doldur('sube-baslik', iletisimVerileri.sube.baslik);
-        doldur('sube-adres', iletisimVerileri.sube.adres);
-        doldur('sube-tel', iletisimVerileri.sube.tel);
-        doldur('sube-mobil', iletisimVerileri.sube.mobil);
-        doldur('sube-mail', iletisimVerileri.sube.mail);
+        metniDoldur('sube-baslik', iletisimVerileri.sube.baslik);
+        metniDoldur('sube-adres', iletisimVerileri.sube.adres);
+        metniDoldur('sube-tel', iletisimVerileri.sube.tel);
+        metniDoldur('sube-mobil', iletisimVerileri.sube.mobil);
+        metniDoldur('sube-mail', iletisimVerileri.sube.mail);
     }
 
     // --- Anasayfa CTA (Teknik Servis telefonu) ---
-    doldur('cta-teknik-servis-tel', iletisimVerileri.cta_teknik_servis_tel);
+    metniDoldur('cta-teknik-servis-tel', iletisimVerileri.cta_teknik_servis_tel);
+
+    // --- Anasayfa Teknik Servis bölümündeki telefon butonu ---
+    const tsTelButon = document.getElementById('ts-telefon-link');
+    if (tsTelButon && iletisimVerileri.cta_teknik_servis_tel) {
+        tsTelButon.href = `tel:${iletisimVerileri.cta_teknik_servis_tel.replace(/\s/g, '')}`;
+        tsTelButon.innerText = iletisimVerileri.cta_teknik_servis_tel;
+    }
 
     // --- WhatsApp float butonu (tüm sayfalarda) ---
     if (iletisimVerileri.whatsapp_numara) {
         const waLink = document.getElementById('whatsapp-float-link');
         if (waLink) waLink.href = `https://wa.me/${iletisimVerileri.whatsapp_numara}`;
     }
+}
+
+// ==========================================================================
+// HAKKIMIZDA: DİNAMİK KATEGORİ İKON IZGARASI
+// ==========================================================================
+// content/urunler.json içindeki benzersiz "kategori" değerlerinden otomatik
+// olarak oluşturulur. Panelden yeni bir kategoride ürün eklediğinizde bu
+// ızgara otomatik olarak güncellenir, hiçbir ek işlem gerekmez.
+
+function kategoriGridOlustur() {
+    const grid = document.getElementById('kategori-grid');
+    if (!grid) return;
+
+    const kategoriler = [...new Set(Object.values(urunVerileri).map(u => u.kategori).filter(Boolean))];
+    if (kategoriler.length === 0) return;
+
+    grid.innerHTML = kategoriler.map(kat => `
+        <div class="kategori-item">
+            <div class="kategori-icon">${kategoriIkonuBul(kat)}</div>
+            <span>${kat}</span>
+        </div>
+    `).join('');
+}
+
+// ==========================================================================
+// ANASAYFA: TEKNİK SERVİS BÖLÜMÜ (Hakkımızda'dan önce)
+// ==========================================================================
+
+function teknikServisOlustur() {
+    const grid = document.getElementById('teknik-servis-grid');
+    if (!grid) return;
+
+    const veri = kurumsalVerileri.teknik_servis;
+    if (!veri) return;
+
+    const aciklamaEl = document.getElementById('teknik-servis-aciklama');
+    if (aciklamaEl && veri.aciklama) aciklamaEl.innerText = veri.aciklama;
+
+    grid.innerHTML = (veri.hizmetler || []).map(hizmet => `
+        <div class="ts-item">
+            <div class="ts-icon">${ikonBul(hizmet.ikon)}</div>
+            <h4>${hizmet.baslik}</h4>
+            <p>${hizmet.aciklama}</p>
+        </div>
+    `).join('');
+}
+
+// ==========================================================================
+// ANASAYFA: AVANTAJLARIMIZ BÖLÜMÜ
+// ==========================================================================
+
+function avantajlarGridOlustur() {
+    const grid = document.getElementById('avantajlar-grid');
+    if (!grid) return;
+
+    const liste = kurumsalVerileri.avantajlar || [];
+    if (liste.length === 0) return;
+
+    grid.innerHTML = liste.map(item => `
+        <div class="avantaj-item">
+            <div class="avantaj-icon">${ikonBul(item.ikon)}</div>
+            <div>
+                <h4>${item.baslik}</h4>
+                <p>${item.aciklama}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ==========================================================================
+// ANASAYFA: İSTATİSTİKLER BÖLÜMÜ
+// ==========================================================================
+
+function istatistiklerGridOlustur() {
+    const grid = document.getElementById('istatistik-grid');
+    if (!grid) return;
+
+    const liste = kurumsalVerileri.istatistikler || [];
+    if (liste.length === 0) {
+        grid.closest('.istatistikler-section')?.remove();
+        return;
+    }
+
+    grid.innerHTML = liste.map(item => `
+        <div class="istatistik-item">
+            <div class="istatistik-sayi">${item.sayi}</div>
+            <div class="istatistik-etiket">${item.etiket}</div>
+        </div>
+    `).join('');
 }
 
 // ==========================================================================

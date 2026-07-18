@@ -1,7 +1,4 @@
-# =====================================================================
-# ÖNEMLİ: "repo" değerini kendi GitHub kullanıcı-adiniz/repo-adiniz
-# bilgisiyle değiştirin. Örnek: repo: mehmetcinar/cinar-dis-deposu
-# =====================================================================
+
 backend:
   name: github
   repo: Halidx1/Dental-Website
@@ -12,6 +9,21 @@ media_folder: "images/uploads"
 public_folder: "images/uploads"
 
 locale: "tr"
+
+# Sabit ikon seçenekleri (Teknik Servis ve Avantajlar bölümlerinde kullanılır)
+# Yeni bir ikon eklemek isterseniz script.js içindeki ICON_KUTUPHANESI'ne
+# de eklemeniz gerekir, aksi halde varsayılan diş ikonu gösterilir.
+_ikon_secenekleri: &ikon_secenekleri
+  - { label: "Diş / Genel", value: "dis" }
+  - { label: "Deneyim (Saat)", value: "deneyim" }
+  - { label: "Anahtar / Servis", value: "anahtar" }
+  - { label: "Marka / Rozet", value: "marka" }
+  - { label: "Şube / Konum", value: "sube" }
+  - { label: "Kalite / Onay", value: "kalite" }
+  - { label: "Müşteri / Memnuniyet", value: "musteri" }
+  - { label: "Arıza Tespiti (Büyüteç)", value: "tespit" }
+  - { label: "Bakım (Ayarlar)", value: "bakim" }
+  - { label: "Destek (Kalkan)", value: "destek" }
 
 collections:
 
@@ -29,7 +41,7 @@ collections:
             summary: "{{fields.baslik}} ({{fields.kategori}})"
             fields:
               - { label: "Ürün ID (benzersiz, boşluksuz, örn: yeni-urun-adi)", name: "id", widget: "string" }
-              - { label: "Kategori", name: "kategori", widget: "string" }
+              - { label: "Kategori", name: "kategori", widget: "string", hint: "Anasayfadaki 'Hakkımızda' bölümünde bu kategoriler otomatik olarak ikonlu şekilde listelenir." }
               - { label: "Başlık", name: "baslik", widget: "string" }
               - { label: "Açıklama", name: "aciklama", widget: "text" }
               - label: "Özellikler"
@@ -74,6 +86,7 @@ collections:
               - { label: "Duyuru ID (benzersiz, boşluksuz)", name: "id", widget: "string" }
               - { label: "Başlık", name: "baslik", widget: "string" }
               - { label: "Açıklama", name: "aciklama", widget: "text" }
+              - { label: "Görsel", name: "gorsel", widget: "image", required: false, hint: "Boş bırakılırsa kart üzerinde gri bir alan gösterilir." }
               - { label: "Tarih", name: "tarih", widget: "datetime", required: false }
 
   # ---------------- İLETİŞİM BİLGİLERİ ----------------
@@ -84,20 +97,20 @@ collections:
         label: "İletişim ve Şube Bilgileri"
         file: "content/iletisim.json"
         fields:
-          - label: "Merkez Şube"
+          - label: "Bursa Merkez"
             name: "merkez"
             widget: "object"
             fields:
-              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Başlık (footer ve iletişim sayfasında görünür)", name: "baslik", widget: "string" }
               - { label: "Adres", name: "adres", widget: "string" }
               - { label: "Sabit Telefon", name: "tel", widget: "string" }
               - { label: "Mobil Telefon", name: "mobil", widget: "string" }
               - { label: "E-posta", name: "mail", widget: "string" }
-          - label: "İkinci Şube"
+          - label: "İstanbul Şube"
             name: "sube"
             widget: "object"
             fields:
-              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Başlık (footer ve iletişim sayfasında görünür)", name: "baslik", widget: "string" }
               - { label: "Adres", name: "adres", widget: "string" }
               - { label: "Sabit Telefon", name: "tel", widget: "string" }
               - { label: "Mobil Telefon", name: "mobil", widget: "string" }
@@ -106,3 +119,41 @@ collections:
           - { label: "Footer'da Görünen Telefon", name: "footer_telefon", widget: "string" }
           - { label: "Anasayfa Teknik Servis Telefonu", name: "cta_teknik_servis_tel", widget: "string" }
           - { label: "WhatsApp Numarası (ülke kodu ile, boşluksuz, örn: 905315652209)", name: "whatsapp_numara", widget: "string" }
+
+  # ---------------- KURUMSAL (Teknik Servis / Avantajlar / İstatistikler) ----------------
+  - name: "kurumsal"
+    label: "Kurumsal Bilgiler"
+    files:
+      - name: "kurumsal"
+        label: "Teknik Servis, Avantajlar ve İstatistikler"
+        file: "content/kurumsal.json"
+        fields:
+          - label: "Teknik Servis Bölümü (Anasayfa, Hakkımızda'dan önce)"
+            name: "teknik_servis"
+            widget: "object"
+            fields:
+              - { label: "Kısa Açıklama", name: "aciklama", widget: "text" }
+              - label: "Hizmetler"
+                name: "hizmetler"
+                widget: "list"
+                summary: "{{fields.baslik}}"
+                fields:
+                  - { label: "İkon", name: "ikon", widget: "select", options: *ikon_secenekleri }
+                  - { label: "Başlık", name: "baslik", widget: "string" }
+                  - { label: "Açıklama", name: "aciklama", widget: "text" }
+          - label: "Avantajlarımız Bölümü"
+            name: "avantajlar"
+            widget: "list"
+            summary: "{{fields.baslik}}"
+            fields:
+              - { label: "İkon", name: "ikon", widget: "select", options: *ikon_secenekleri }
+              - { label: "Başlık", name: "baslik", widget: "string" }
+              - { label: "Açıklama", name: "aciklama", widget: "text" }
+          - label: "İstatistikler Bölümü"
+            name: "istatistikler"
+            widget: "list"
+            summary: "{{fields.sayi}} — {{fields.etiket}}"
+            hint: "Yalnızca doğruluğundan emin olduğunuz rakamları ekleyin (örn. ürün çeşidi, mutlu müşteri sayısı vb.)."
+            fields:
+              - { label: "Sayı (örn: 40+, 3.000, 81)", name: "sayi", widget: "string" }
+              - { label: "Etiket (örn: Yıllık Deneyim)", name: "etiket", widget: "string" }

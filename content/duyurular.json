@@ -1,10 +1,18 @@
 {
   "duyurular": [
     {
-      "id": "site-acilis",
-      "baslik": "Çınar Diş Deposu Websitesi Açıldı!",
-      "aciklama": "Uzun süredir üzerinde çalıştığımız, modern ve kullanıcı dostu arayüze sahip yeni websitemiz şimdi açıldı. Sitemiz üzerinden ürünlerimiz hakkında bilgi alabilir, adres yol tarifi alabilir, teknik servis/onarım veya herhangi bir konudaki destek/talepleriniz için iletişim formu aracılığıyla bizimle iletişime geçebilirsiniz!",
-      "tarih": "2026-07-16T08:00"
+      "id": "yeni-implant-serisi",
+      "baslik": "Yeni İmplant Serisi",
+      "aciklama": "2026 model yeni implant sistemlerimiz stoklarımıza girmiştir...",
+      "tarih": "",
+      "gorsel": ""
+    },
+    {
+      "id": "egitim-semineri",
+      "baslik": "Eğitim Semineri",
+      "aciklama": "Dental cerrahi teknikleri üzerine düzenlediğimiz...",
+      "tarih": "",
+      "gorsel": ""
     }
   ]
 }

@@ -31,6 +31,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="index.html#about">Misyonumuz</a></li>
                         <li><a href="index.html#brands">Markalarımız</a></li>
+                        <li><a href="index.html#about">Sertifikalarımız</a></li>
                         <li><a href="gizlilik-politikasi.html">Gizlilik Politikası</a></li>
                     </ul>
                 </li>
@@ -65,6 +66,24 @@
         </div>
     </header>
 
+    <section id="teknik-servis" class="teknik-servis-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Teknik Servis & Destek</h2>
+                <p id="teknik-servis-aciklama" style="color:#666; max-width:700px; margin: 0 auto; font-size: 1.05rem;">Klinik cihazlarınızın kesintisiz çalışması için satış öncesinde ve satış sonrasında yanınızdayız.</p>
+            </div>
+
+            <div class="teknik-servis-grid" id="teknik-servis-grid">
+                <!-- content/kurumsal.json'dan script.js tarafından otomatik doldurulur -->
+            </div>
+
+            <div class="ts-cta">
+                <p>Teknik servis hattımız:</p>
+                <a href="tel:+905315652209" id="ts-telefon-link" class="btn-primary">0 531 565 22 09</a>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="about-section">
         <div class="container">
             <div class="section-title">
@@ -78,6 +97,10 @@
 
                     Kaliteli ürün anlayışımız, hızlı teknik desteğimiz ve satış sonrası hizmetlerimizle müşterilerimize uzun yıllardır güvenilir çözümler sunuyoruz. Her zaman müşteri memnuniyetini ön planda tutarak, ihtiyaçlara en uygun ürün ve hizmeti en yüksek kalite standartlarında sağlamayı hedefliyoruz.
                 </p>
+            </div>
+
+            <div class="kategori-grid" id="kategori-grid">
+                <!-- content/urunler.json'daki kategorilerden script.js tarafından otomatik doldurulur -->
             </div>
         </div>
     </section>
@@ -96,6 +119,16 @@
         </div>
     </section>
 
+    <section id="avantajlar" class="avantajlar-section">
+        <div class="container">
+            <div class="section-title"><h2>Neden Çınar Diş Deposu?</h2></div>
+            <div class="avantajlar-grid" id="avantajlar-grid">
+                <!-- content/kurumsal.json'dan script.js tarafından otomatik doldurulur -->
+            </div>
+        </div>
+    </section>
+
+
     <section id="brands" class="brands-section">
         <div class="container">
             <h4 style="text-align: center; color: #888; font-family: var(--font-body); margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">Güvenilir Çözüm Ortaklarımız</h4>
@@ -103,6 +136,14 @@
         
         <div class="brands-marquee">
             <div class="brands-track" id="dynamic-brands-track">
+            </div>
+        </div>
+    </section>
+
+    <section class="istatistikler-section">
+        <div class="container">
+            <div class="istatistik-grid" id="istatistik-grid">
+                <!-- content/kurumsal.json'dan script.js tarafından otomatik doldurulur -->
             </div>
         </div>
     </section>
@@ -117,8 +158,8 @@
             <div class="cta-right">
                 <h2>Teknik Servis & Onarım</h2>
                 <p>Klinik cihaz arızaları, periyodik bakım ve onarım destek hizmetlerimiz için teknik ekibimize direkt olarak ulaşın.</p>
-                <h3 id="cta-teknik-servis-tel" style="color: var(--color-primary); font-size: 1.5rem; margin-top: 10px; font-family: var(--font-body);">0 531 565 22 09</h3>
-                <h3 id="cta-teknik-servis-tel" style="color: var(--color-primary); font-size: 1.5rem; margin-top: 10px; font-family: var(--font-body);">0 531 263 03 90</h3>
+                <a href="tel:+905315652209" class="cta-tel-link">0 531 565 22 09</a>
+                <a href="tel:+905312630390" class="cta-tel-link">0 531 263 03 90</a>
 
             </div>
         </div>
@@ -138,6 +179,8 @@
                 <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="index.html#about">Hakkımızda</a></li>
                 <li><a href="index.html#brands">Markalarımız</a></li>
+                <li><a href="duyurular.html">Duyurular</a></li>
+                <li><a href="iletisim.html">İletişim ve Şubelerimiz</a></li>
                 <li><a href="gizlilik-politikasi.html">Gizlilik Politikası</a></li>
             </ul>
         </div>
@@ -150,14 +193,23 @@
         </div>
         
         <div class="footer-contact-box">
-            <h4>İletişim</h4>
-            <ul style="margin-bottom: 15px;">
-                <li><a href="duyurular.html">Duyurular</a></li>
-                <li><a href="iletisim.html">İletişim ve Şubelerimiz</a></li>
+            <h4 id="footer-merkez-baslik">Bursa Merkez</h4>
+            <ul class="footer-address-list">
+                <li><a id="footer-merkez-adres-link" href="#" target="_blank" rel="noopener">Adres yükleniyor...</a></li>
+                <li><a id="footer-merkez-tel-link" href="#">Tel</a></li>
+                <li><a id="footer-merkez-mobil-link" href="#">Mobil</a></li>
+                <li><a id="footer-merkez-mail-link" href="#">E-posta</a></li>
             </ul>
-            <p> <strong> Merkez: </strong> <span id="footer-merkez-adres">Hocaalizade Mah. 7. Hamam Sok. No:10 Osmangazi/BURSA</span> </p>
-
-            <p style="margin-top: 5px;"><strong>Telefon:</strong> <span id="footer-telefon">+90 212 221 65 00</span></p>
+        </div>
+        
+        <div class="footer-contact-box">
+            <h4 id="footer-sube-baslik">İstanbul Şube</h4>
+            <ul class="footer-address-list">
+                <li><a id="footer-sube-adres-link" href="#" target="_blank" rel="noopener">Adres yükleniyor...</a></li>
+                <li><a id="footer-sube-tel-link" href="#">Tel</a></li>
+                <li><a id="footer-sube-mobil-link" href="#">Mobil</a></li>
+                <li><a id="footer-sube-mail-link" href="#">E-posta</a></li>
+            </ul>
         </div>
         
     </div>
